@@ -3,7 +3,7 @@
 Retrieves a list of all models currently loaded in memory, including their details such as size, format, and parameter count.
 
 - **Ollama Endpoint:** `GET /api/ps`
-- **Method:** `OllamaClient.Management.ListRunningModelsAsync` / `ListRunningModels`
+- **Method:** `ListRunningModelsAsync` / `ListRunningModels`
 ---
 
 ## 💻 Code Example

@@ -3,7 +3,7 @@
 Creates a copy of an existing model in your local Ollama storage under a new name.
 
 - **Ollama Endpoint:** `POST /api/copy`
-- **Method:** `OllamaClient.Management.CopyModelAsync` / `CopyModel`
+- **Method:** `CopyModelAsync` / `CopyModel`
 
 ---
 

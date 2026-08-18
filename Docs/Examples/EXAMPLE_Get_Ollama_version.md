@@ -3,7 +3,7 @@
 Retrieves the current version of the Ollama server.
 
 - **Ollama Endpoint:** `GET /api/version`
-- **Method:** `OllamaClient.Management.GetOllamaVersionAsync` / `GetOllamaVersion`
+- **Method:** `GetOllamaVersionAsync` / `GetOllamaVersion`
 ---
 
 ## 💻 Code Example

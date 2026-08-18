@@ -3,8 +3,8 @@
 Uploads a local model to the Ollama remote model library. Requires registering on ollama.com and adding your public key first.
 
 - **Ollama Endpoint:** `POST /api/push`
-- **Standard Method:** `OllamaClient.Management.PushModelAsync` / `PushModel`
-- **Streaming Method:** `OllamaClient.Management.StreamPushModelAsync`
+- **Standard Method:** `PushModelAsync` / `PushModel`
+- **Streaming Method:** `StreamPushModelAsync`
 
 ---
 

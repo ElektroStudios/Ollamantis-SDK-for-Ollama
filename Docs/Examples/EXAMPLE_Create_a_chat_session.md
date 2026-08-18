@@ -3,9 +3,8 @@
 Creates a chat session with an Ollama model, automatically maintaining conversation history across consecutive interactions.
 
 - **Ollama Endpoint:** `POST /api/chat`
-- **Class:** `Ollamantis.Core.ChatSession`
-- **Standard Method:** `ChatSession.GenerateChatCompletionAsync` / `GenerateChatCompletion`
-- **Streaming Method:** `ChatSession.StreamChatCompletionAsync`
+- **Standard Method:** `GenerateChatCompletionAsync` / `GenerateChatCompletion`
+- **Streaming Method:** `StreamChatCompletionAsync`
 
 ---
 

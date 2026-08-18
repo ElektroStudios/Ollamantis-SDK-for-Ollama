@@ -3,7 +3,7 @@
 Deletes an existing model and its associated data from your local Ollama storage.
 
 - **Ollama Endpoint:** `DELETE /api/delete`
-- **Method:** `OllamaClient.Management.DeleteModelAsync` / `DeleteModel`
+- **Method:** `DeleteModelAsync` / `DeleteModel`
 
 ---
 

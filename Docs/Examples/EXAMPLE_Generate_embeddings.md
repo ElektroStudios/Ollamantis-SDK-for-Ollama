@@ -3,7 +3,7 @@
 Creates vector embeddings representing the input text.
 
 - **Ollama Endpoint:** `POST /api/embed`
-- **Method:** `OllamaClient.Generation.GenerateEmbeddingsAsync` / `GenerateEmbeddings`
+- **Method:** `GenerateEmbeddingsAsync` / `GenerateEmbeddings`
 
 ---
 

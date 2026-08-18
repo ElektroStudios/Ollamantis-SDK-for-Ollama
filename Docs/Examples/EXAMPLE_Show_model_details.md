@@ -3,7 +3,7 @@
 Retrieves detailed information about a specific local model, including its license, system prompt template, modelfile configuration, and architectural details.
 
 - **Ollama Endpoint:** `POST /api/show`
-- **Method:** `OllamaClient.Management.ShowModelAsync` / `ShowModel`
+- **Method:** `ShowModelAsync` / `ShowModel`
 ---
 
 ## 💻 Code Example

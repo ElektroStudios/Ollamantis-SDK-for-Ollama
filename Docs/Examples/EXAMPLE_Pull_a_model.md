@@ -3,8 +3,8 @@
 Downloads a model from the Ollama remote library onto your local storage.
 
 - **Ollama Endpoint:** `POST /api/pull`
-- **Standard Method:** `OllamaClient.Management.PullModelAsync` / `PullModel`
-- **Streaming Method:** `OllamaClient.Management.StreamPullModelAsync`
+- **Standard Method:** `PullModelAsync` / `PullModel`
+- **Streaming Method:** `StreamPullModelAsync`
 
 ---
 

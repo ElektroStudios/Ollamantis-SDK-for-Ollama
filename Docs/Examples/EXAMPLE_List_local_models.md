@@ -3,7 +3,7 @@
 Retrieves a list of all models currently downloaded and available locally on the Ollama server, including their details such as size, format, and parameter count.
 
 - **Ollama Endpoint:** `GET /api/tags`
-- **Method:** `OllamaClient.Management.ListLocalModelsAsync` / `ListLocalModels`
+- **Method:** `ListLocalModelsAsync` / `ListLocalModels`
 ---
 
 ## 💻 Code Example
