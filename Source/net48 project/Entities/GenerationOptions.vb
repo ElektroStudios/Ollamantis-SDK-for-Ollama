@@ -511,7 +511,6 @@ Namespace Entities
         ''' <para></para>
         ''' This parameter is deprecated by the Ollama API and is ignored by the server.
         ''' </param>
-        <SuppressMessage("sonar", "S107", Justification:="Preserves standard mathematical ML notation (e.g., N, K, P) to match the Ollama API.")>
         <SuppressMessage("Major Code Smell", "S107:Methods should not have too many parameters", Justification:="Ollama API JSON deserialization requires a large number of parameters.")>
         Public Sub New(Optional contextSize As Integer? = Nothing,
                        Optional repeatLastN As Integer? = Nothing,

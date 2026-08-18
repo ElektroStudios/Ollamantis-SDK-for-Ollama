@@ -1,0 +1,3 @@
+[*.vb]
+# Disable Sonar's camelCase pedantry to allow standard ML parameter names like topK, topP, and repeatLastN
+dotnet_diagnostic.S117.severity = none
