@@ -39,13 +39,14 @@ Using client As New OllamaClient()
     Dim embedResponse As EmbeddingsResponse =
         Await client.Generation.GenerateEmbeddingsAsync(embedRequest, CancellationToken.None)
 
-    Dim responseJson As String = embedResponse.ToString(writeIndented:=False)
+    Dim responseJson As String = embedResponse.ToString(writeIndented:=True)
     Console.WriteLine(responseJson)
 End Using
 ```
 
 ## 📝 JSON Output
 
+### On success:
 ```json
 {
   "model": "all-minilm",
@@ -70,5 +71,17 @@ End Using
   "isSuccessful": true,
   "statusCode": 200,
   "reasonPhrase": "OK"
+}
+```
+
+### On failure:
+```json
+{
+  "model": null,
+  "embeddings": null,
+  "isSuccessful": false,
+  "statusCode": 501,
+  "reasonPhrase": "Not Implemented",
+  "errorMessage": "This server does not support embeddings. Start it with \u0060--embeddings\u0060"
 }
 ```
