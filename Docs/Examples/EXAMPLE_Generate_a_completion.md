@@ -20,8 +20,8 @@ using (OllamaClient client = new OllamaClient()) {
 
     CompletionRequest genRequest = new CompletionRequest {
         Model = "qwen2.5vl:7b",
+        System = "You are a helpful and knowledgeable AI assistant. Provide clear and scientifically accurate answers.",
         Prompt = "Why is the sky blue?.",
-        System = "You are a helpful and knowledgeable AI assistant. Provide clear, concise, and scientifically accurate answers.",
         Options = genOptions
     };
 
@@ -44,8 +44,8 @@ Using client As New OllamaClient()
 
     Dim genRequest As New CompletionRequest With {
         .Model = "qwen2.5vl:7b",
+        .System = "You are a helpful and knowledgeable AI assistant. Provide clear and scientifically accurate answers.",
         .Prompt = "Why is the sky blue?.",
-        .System = "You are a helpful and knowledgeable AI assistant. Provide clear, concise, and scientifically accurate answers.",
         .Options = genOptions
     }
 
@@ -70,8 +70,8 @@ using (OllamaClient client = new OllamaClient()) {
 
     CompletionRequest genRequest = new CompletionRequest {
         Model = "qwen2.5vl:7b",
+        System = "You are a helpful and knowledgeable AI assistant. Provide clear and scientifically accurate answers.",
         Prompt = "Why is the sky blue?.",
-        System = "You are a helpful and knowledgeable AI assistant. Provide clear, concise, and scientifically accurate answers.",
         Options = genOptions
     };
 
@@ -100,8 +100,8 @@ Using client As New OllamaClient()
 
     Dim genRequest As New CompletionRequest With {
         .Model = "qwen2.5vl:7b",
+        .System = "You are a helpful and knowledgeable AI assistant. Provide clear and scientifically accurate answers.",
         .Prompt = "Why is the sky blue?.",
-        .System = "You are a helpful and knowledgeable AI assistant. Provide clear, concise, and scientifically accurate answers.",
         .Options = genOptions
     }
 
