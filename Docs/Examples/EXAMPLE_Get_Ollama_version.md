@@ -36,23 +36,11 @@ End Using
 
 ## 📝 JSON Output
 
-### On success:
 ```json
 {
-  "status": null,
+  "version": "0.32.14",
   "isSuccessful": true,
-  "statusCode": 200
-}
-
-```
-
-### On failure:
-```json
-{
-  "status": null,
-  "isSuccessful": false,
-  "statusCode": 500,
-  "reasonPhrase": "Internal Server Error",
-  "errorMessage": "open C:\\Users\\Administrator\\.ollama\\models\\manifests\\registry.ollama.ai\\namespace\\mymodel\\3b: The system cannot find the path specified."
+  "statusCode": 200,
+  "reasonPhrase": "OK"
 }
 ```
