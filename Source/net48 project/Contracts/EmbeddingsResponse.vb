@@ -11,6 +11,7 @@ Option Infer Off
 
 Imports System.ComponentModel
 Imports System.Diagnostics
+Imports System.Diagnostics.CodeAnalysis
 Imports System.Text.Json.Serialization
 
 #End Region
@@ -28,6 +29,7 @@ Namespace Contracts
     ''' <see href="https://github.com/ollama/ollama/blob/main/docs/api.md#generate-embeddings">
     ''' Ollama API documentation</see>.
     ''' </remarks>
+    <SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression")>
     <EditorBrowsable(EditorBrowsableState.Always)>
     <Browsable(True)>
     <DebuggerStepThrough>
@@ -78,6 +80,7 @@ Namespace Contracts
         ''' The number of tokens evaluated in the prompt.
         ''' </param>
         <JsonConstructor>
+        <SuppressMessage("Major Code Smell", "S2368:Public methods should not have multidimensional array parameters", Justification:="A jagged array is required for zero-overhead JSON deserialization representing the exact API payload for embeddings.")>
         Public Sub New(model As String,
                        embeddings As Double()(),
                        totalDuration As Long?,

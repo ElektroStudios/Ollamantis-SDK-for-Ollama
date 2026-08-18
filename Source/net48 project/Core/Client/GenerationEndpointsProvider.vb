@@ -589,10 +589,10 @@ Namespace Core
 
             ' Hydrate the newly created object with the HTTP 200 OK metadata from the final chunk.
             Dim baseAggregated As ResponseBase = generateResponse
-            baseAggregated.HydrateMetadata(baseFinalChunk.IsSuccessful,
-                               baseFinalChunk.StatusCode,
-                               baseFinalChunk.ReasonPhrase,
-                               rawJson:=Nothing)
+            baseAggregated?.HydrateMetadata(baseFinalChunk.IsSuccessful,
+                                            baseFinalChunk.StatusCode,
+                                            baseFinalChunk.ReasonPhrase,
+                                            rawJson:=Nothing)
 
             Return generateResponse
         End Function
@@ -953,7 +953,7 @@ Namespace Core
 
             ' If the HTTP request failed (e.g., 404 or 500 error), do NOT aggregate totals.
             ' Just return the final chunk which already contains the properly hydrated ErrorMessage and StatusCode properties.
-            If baseFinalChunk IsNot Nothing AndAlso Not baseFinalChunk.IsSuccessful Then
+            If Not baseFinalChunk.IsSuccessful Then
                 Return finalChunk
             End If
 
@@ -983,13 +983,11 @@ Namespace Core
             )
 
             ' Hydrate the newly created object with the HTTP 200 OK metadata from the final chunk.
-            Dim baseAggregated As ResponseBase = TryCast(chatResponse, ResponseBase)
-            If baseAggregated IsNot Nothing AndAlso baseFinalChunk IsNot Nothing Then
-                baseAggregated.HydrateMetadata(baseFinalChunk.IsSuccessful,
-                                               baseFinalChunk.StatusCode,
-                                               baseFinalChunk.ReasonPhrase,
-                                               rawJson:=Nothing)
-            End If
+            Dim baseAggregated As ResponseBase = chatResponse
+            baseAggregated?.HydrateMetadata(baseFinalChunk.IsSuccessful,
+                                            baseFinalChunk.StatusCode,
+                                            baseFinalChunk.ReasonPhrase,
+                                            rawJson:=Nothing)
 
             Return chatResponse
         End Function
