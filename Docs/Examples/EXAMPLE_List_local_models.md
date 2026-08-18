@@ -45,7 +45,7 @@ End Using
       "modified_at": "2026-08-13T03:15:55.0485128+02:00",
       "modified_at_formatted": "Thursday, August 13, 2026 at 23:15:55",
       "size": 5969245856,
-      "size_formatted": "5,56 GB",
+      "size_formatted": "5.56 GB",
       "digest": "5ced39dfa4bac325dc183dd1e4febaa1c46b3ea28bce48896c8e69c1e79611cc",
       "details": {
         "parent_model": "",
@@ -64,7 +64,7 @@ End Using
       "modified_at": "2026-08-13T02:46:07.7284952+02:00",
       "modified_at_formatted": "Thursday, August 13, 2026 at 02:46:07",
       "size": 7816589186,
-      "size_formatted": "7,28 GB",
+      "size_formatted": "7.28 GB",
       "digest": "6f2f9757ae97e8a3f8ea33d6adb2b11d93d9a35bef277cd2c0b1b5af8e8d0b1e",
       "details": {
         "parent_model": "",

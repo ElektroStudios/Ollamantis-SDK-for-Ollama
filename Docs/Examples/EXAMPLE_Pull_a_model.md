@@ -96,7 +96,7 @@ End Using
 
 ## 📝 Intermediate Console Output (For Streaming Code Example):
 ```
-Status: pulling dde5aa3fc5ff      | Layer Total: 1,88 GB
+Status: pulling dde5aa3fc5ff      | Layer Total: 1.88 GB
 ```
 
 ## 📝 JSON Output

@@ -1,4 +1,4 @@
-# 📤 Upload (push) a model fromto the Ollama remote library
+# 📤 Upload (push) a model to the Ollama remote library
 
 Uploads a local model to the Ollama remote model library. Requires registering on ollama.com and adding your public key first.
 
@@ -96,7 +96,7 @@ End Using
 
 ## 📝 Intermediate Console Output (For Streaming Code Example):
 ```
-Status: pushing f4cae5edd1fc      | Layer Total: 1,29 GB
+Status: pushing f4cae5edd1fc      | Layer Total: 1.29 GB
 ```
 
 ## 📝 JSON Output
