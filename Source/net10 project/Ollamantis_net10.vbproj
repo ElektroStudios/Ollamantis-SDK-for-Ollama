@@ -1,0 +1,58 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ApplicationIcon>App.256.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AssemblyName>Ollamantis</AssemblyName>
+    <AssemblyTitle>Ollamantis</AssemblyTitle>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Authors>ElektroStudios</Authors>
+    <Company>ElektroStudios</Company>
+    <Copyright>Copyright © ElektroStudios 2026</Copyright>
+    <Description>A comprehensive .NET client for the Ollama REST API to interact with large language models.</Description>
+    <FileVersion>1.0.0</FileVersion>
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
+    <NeutralLanguage>en</NeutralLanguage>
+    <OptionInfer>Off</OptionInfer>
+    <OptionStrict>On</OptionStrict>
+    <OutputType>Library</OutputType>
+    <PackageIcon>App.256.png</PackageIcon>
+    <PackageTags>ollama;ollama-api;ollama-client;llm;ai;artificial-intelligence;chat;chat-session;streaming;ndjson;embeddings;vision;llama;tool-calling;model-management;sdk;rest-api;vbnet;csharp;dotnet;net10</PackageTags>
+    <PackAsTool>False</PackAsTool>
+    <Product>Ollamantis: The .NET SDK for Ollama</Product>
+    <RootNamespace>Ollamantis</RootNamespace>
+    <TargetFramework>net10.0</TargetFramework>
+    <Title>Ollamantis: The .NET SDK for Ollama</Title>
+    <ToolCommandName>$(TargetName)</ToolCommandName>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/ElektroStudios/Ollamantis</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageId>Ollamantis</PackageId>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="App.256.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.nuget.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\App.256.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>

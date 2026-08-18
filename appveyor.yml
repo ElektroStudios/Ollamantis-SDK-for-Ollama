@@ -2,7 +2,7 @@
 # CUSTOMIZABLE TEMPLATE REPOSITORY VARIABLES
 # 
 environment:
-  APP_DIR_NAME: "PROJECT_NAME_WITHOUT_DASHES"
+  APP_DIR_NAME: "Ollamantis"
   SOLUTION_EXT: "slnx"
 # ------------------------------------------
 

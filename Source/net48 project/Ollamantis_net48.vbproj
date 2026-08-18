@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6ED3BCB3-E948-4424-B78D-9E09578E35DA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <StartupObject>
+    </StartupObject>
+    <RootNamespace>Ollamantis</RootNamespace>
+    <AssemblyName>Ollamantis</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>On</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\AnyCPU\Debug\</OutputPath>
+    <DocumentationFile>Ollamantis.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\AnyCPU\Release\</OutputPath>
+    <DocumentationFile>Ollamantis.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <Prefer32Bit>false</Prefer32Bit>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>App.256.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Text.Json, Version=10.0.0.4, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Contracts\Base\CompletionRequestBase.vb" />
+    <Compile Include="Contracts\Base\GenerationRequestBase.vb" />
+    <Compile Include="Contracts\Base\GenerationResponseBase.vb" />
+    <Compile Include="Contracts\Base\ModelTransferRequestBase.vb" />
+    <Compile Include="Contracts\Base\ModelTransferResponseBase.vb" />
+    <Compile Include="Contracts\Base\ResponseBase.vb" />
+    <Compile Include="Contracts\ChatCompletionRequest.vb" />
+    <Compile Include="Contracts\ChatCompletionResponse.vb" />
+    <Compile Include="Contracts\CompletionRequest.vb" />
+    <Compile Include="Contracts\CompletionResponse.vb" />
+    <Compile Include="Contracts\CopyModelRequest.vb" />
+    <Compile Include="Contracts\CopyModelResponse.vb" />
+    <Compile Include="Contracts\DeleteModelRequest.vb" />
+    <Compile Include="Contracts\DeleteModelResponse.vb" />
+    <Compile Include="Contracts\EmbeddingsRequest.vb" />
+    <Compile Include="Contracts\EmbeddingsResponse.vb" />
+    <Compile Include="Contracts\LocalModelsResponse.vb" />
+    <Compile Include="Contracts\OllamaVersionResponse.vb" />
+    <Compile Include="Contracts\PullModelRequest.vb" />
+    <Compile Include="Contracts\PullModelResponse.vb" />
+    <Compile Include="Contracts\PushModelRequest.vb" />
+    <Compile Include="Contracts\PushModelResponse.vb" />
+    <Compile Include="Contracts\RunningModelsResponse.vb" />
+    <Compile Include="Contracts\ShowModelRequest.vb" />
+    <Compile Include="Contracts\ShowModelResponse.vb" />
+    <Compile Include="Core\Client\ChatSession.vb" />
+    <Compile Include="Core\Client\EndpointsProviderBase.vb" />
+    <Compile Include="Core\Client\GenerationEndpointsProvider.vb" />
+    <Compile Include="Core\Client\ManagementEndpointsProvider.vb" />
+    <Compile Include="Core\Client\OllamaClient.vb" />
+    <Compile Include="Core\Extensions\HttpContentExtensions.vb" />
+    <Compile Include="Core\Extensions\StreamReaderExtensions.vb" />
+    <Compile Include="Core\Helpers\ArgumentValidator.vb" />
+    <Compile Include="Core\Helpers\FileSystemHelper.vb" />
+    <Compile Include="Core\Helpers\OllamaClientHelper.vb" />
+    <Compile Include="Core\JsonObjectBase.vb" />
+    <Compile Include="Core\JsonObjectBaseImmutable.vb" />
+    <Compile Include="Core\Win32\Enums\StrFormatByteSizeFlags.vb" />
+    <Compile Include="Core\Win32\NativeMethods.vb" />
+    <Compile Include="Core\Win32\Win32LibNames.vb" />
+    <Compile Include="Entities\Base\EntityOptionBase.vb" />
+    <Compile Include="Entities\Base\ModelBase.vb" />
+    <Compile Include="Entities\ChatMessage.vb" />
+    <Compile Include="Entities\FormatOption.vb" />
+    <Compile Include="Entities\FunctionCall.vb" />
+    <Compile Include="Entities\FunctionDefinition.vb" />
+    <Compile Include="Entities\GenerationOptions.vb" />
+    <Compile Include="Entities\ImageOption.vb" />
+    <Compile Include="Entities\JsonConverters\FormatOptionJsonConverter.vb" />
+    <Compile Include="Entities\JsonConverters\ImageOptionJsonConverter.vb" />
+    <Compile Include="Entities\JsonConverters\KeepAliveOptionJsonConverter.vb" />
+    <Compile Include="Entities\JsonConverters\RoleOptionJsonConverter.vb" />
+    <Compile Include="Entities\JsonConverters\ThinkOptionJsonConverter.vb" />
+    <Compile Include="Entities\KeepAliveOption.vb" />
+    <Compile Include="Entities\LocalModel.vb" />
+    <Compile Include="Entities\ModelDetails.vb" />
+    <Compile Include="Entities\RoleOption.vb" />
+    <Compile Include="Entities\RunningModel.vb" />
+    <Compile Include="Entities\ThinkOption.vb" />
+    <Compile Include="Entities\Tool.vb" />
+    <Compile Include="Entities\ToolCall.vb" />
+    <Compile Include="Entities\ToolType.vb" />
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App.256.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="net10 project/Ollamantis_net10.vbproj" />
+  <Project Path="net48 project/Ollamantis_net48.vbproj" Id="6ed3bcb3-e948-4424-b78d-9e09578e35da" />
+  <Project Path="Ollamantis.Tests/Ollamantis.Tests.vbproj" Id="d3d9d087-cbfc-4eda-8e4c-577178bc7596" />
+</Solution>
