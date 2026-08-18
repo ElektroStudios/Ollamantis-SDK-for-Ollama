@@ -35,7 +35,7 @@ Namespace Entities
         ''' Reads and converts the JSON to type <see cref="ImageOption"/>.
         ''' </summary>
         ''' 
-        ''' <param name="refReader">
+        ''' <param name="reader">
         ''' The <see cref="Utf8JsonReader"/> to read from.
         ''' </param>
         ''' 
@@ -50,13 +50,13 @@ Namespace Entities
         ''' <returns>
         ''' The resulting <see cref="ImageOption"/>.
         ''' </returns>
-        Public Overrides Function Read(ByRef refReader As Utf8JsonReader,
+        Public Overrides Function Read(ByRef reader As Utf8JsonReader,
                                              typeToConvert As Type,
                                              options As JsonSerializerOptions) As ImageOption
 
-            Return If(refReader.TokenType = JsonTokenType.String,
-                  ImageOption.FromBase64(refReader.GetString()),
-                  Nothing)
+            Return If(reader.TokenType = JsonTokenType.String,
+                      ImageOption.FromBase64(reader.GetString()),
+                      Nothing)
         End Function
 
         ''' <summary>

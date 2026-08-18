@@ -11,10 +11,12 @@ Option Infer Off
 
 Imports System.ComponentModel
 Imports System.Diagnostics
+Imports System.Diagnostics.CodeAnalysis
 Imports System.Text.Json.Serialization
 
-Imports Ollamantis.Core
 Imports Ollamantis.Contracts
+Imports Ollamantis.Core
+
 
 #End Region
 
@@ -343,6 +345,8 @@ Namespace Entities
         Public Sub New()
         End Sub
 
+#Disable Warning IDE0079 ' Remove unnecessary suppression
+
         ''' <summary>
         ''' Initializes a new instance of the <see cref="GenerationOptions"/> class with optional parameters.
         ''' </summary>
@@ -506,6 +510,8 @@ Namespace Entities
         ''' <para></para>
         ''' This parameter is deprecated by the Ollama API and is ignored by the server.
         ''' </param>
+        <SuppressMessage("Major Code Smell", "S107:Methods should not have too many parameters", Justification:="Ollama API JSON deserialization requires a large number of parameters.")>
+        <SuppressMessage("Naming", "S117:Local variables should be camelCase", Justification:="Parameter names preserve standard mathematical ML notation (e.g., N, K, P) to strictly align with the official Ollama API terminology.")>
         Public Sub New(Optional contextSize As Integer? = Nothing,
                        Optional repeatLastN As Integer? = Nothing,
                        Optional repeatPenalty As Double? = Nothing,
@@ -529,6 +535,7 @@ Namespace Entities
                        Optional useMmap As Boolean? = Nothing,
                        Optional numa As Boolean? = Nothing)
 
+#Enable Warning IDE0079 ' Remove unnecessary suppression
 #Disable Warning BC40000 ' Type or member is obsolete
 
             Me.ContextSize = contextSize

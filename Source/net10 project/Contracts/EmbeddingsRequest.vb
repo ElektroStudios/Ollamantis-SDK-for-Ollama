@@ -188,7 +188,7 @@ Namespace Contracts
               Optional dimensions As Integer? = Nothing)
 
             Me.New(model:=model,
-                   inputs:=New String() {input},
+                   inputs:={input},
                    truncate:=truncate,
                    options:=options,
                    keepAlive:=keepAlive,

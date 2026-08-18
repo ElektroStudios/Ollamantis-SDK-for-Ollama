@@ -35,7 +35,7 @@ Namespace Entities
         ''' Reads and converts the JSON to type <see cref="KeepAliveOption"/>.
         ''' </summary>
         ''' 
-        ''' <param name="refReader">
+        ''' <param name="reader">
         ''' The <see cref="Utf8JsonReader"/> to read from.
         ''' </param>
         ''' 
@@ -50,17 +50,17 @@ Namespace Entities
         ''' <returns>
         ''' The resulting <see cref="KeepAliveOption"/>.
         ''' </returns>
-        Public Overrides Function Read(ByRef refReader As Utf8JsonReader,
+        Public Overrides Function Read(ByRef reader As Utf8JsonReader,
                                              typeToConvert As Type,
                                              options As JsonSerializerOptions) As KeepAliveOption
 
-            If refReader.TokenType = JsonTokenType.String Then
-                Return CType(refReader.GetString(), KeepAliveOption)
+            If reader.TokenType = JsonTokenType.String Then
+                Return reader.GetString()
 
-            ElseIf refReader.TokenType = JsonTokenType.Number Then
+            ElseIf reader.TokenType = JsonTokenType.Number Then
                 ' If Ollama returns raw seconds instead of a duration string.
-                Dim seconds As Integer = refReader.GetInt32()
-                Return CType(seconds, KeepAliveOption)
+                Dim seconds As Integer = reader.GetInt32()
+                Return seconds
 
             Else
                 Return Nothing

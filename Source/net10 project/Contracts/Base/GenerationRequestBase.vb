@@ -107,11 +107,11 @@ Namespace Contracts
         ''' </param>
         Public Sub New(model As String,
                        options As GenerationOptions,
-                       KeepAlive As KeepAliveOption)
+                       keepAlive As KeepAliveOption)
 
             Me.Model = model
             Me.Options = options
-            Me.KeepAlive = KeepAlive
+            Me.KeepAlive = keepAlive
         End Sub
 
 #End Region

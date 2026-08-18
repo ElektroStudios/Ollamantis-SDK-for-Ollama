@@ -35,7 +35,7 @@ Namespace Entities
         ''' Reads and converts the JSON to type <see cref="RoleOption"/>.
         ''' </summary>
         ''' 
-        ''' <param name="refReader">
+        ''' <param name="reader">
         ''' The <see cref="Utf8JsonReader"/> to read from.
         ''' </param>
         ''' 
@@ -50,13 +50,13 @@ Namespace Entities
         ''' <returns>
         ''' The resulting <see cref="RoleOption"/>.
         ''' </returns>
-        Public Overrides Function Read(ByRef refReader As Utf8JsonReader,
+        Public Overrides Function Read(ByRef reader As Utf8JsonReader,
                                              typeToConvert As Type,
                                              options As JsonSerializerOptions) As RoleOption
 
-            If refReader.TokenType = JsonTokenType.String Then
+            If reader.TokenType = JsonTokenType.String Then
                 ' The implicit operator in ChatRoleOption will handle the conversion and validation.
-                Return refReader.GetString()
+                Return reader.GetString()
 
             Else
                 Return Nothing

@@ -35,7 +35,7 @@ Namespace Entities
         ''' Reads and converts the JSON to type <see cref="ThinkOption"/>.
         ''' </summary>
         ''' 
-        ''' <param name="refReader">
+        ''' <param name="reader">
         ''' The <see cref="Utf8JsonReader"/> to read from.
         ''' </param>
         ''' 
@@ -50,18 +50,18 @@ Namespace Entities
         ''' <returns>
         ''' The resulting <see cref="ThinkOption"/>.
         ''' </returns>
-        Public Overrides Function Read(ByRef refReader As Utf8JsonReader,
+        Public Overrides Function Read(ByRef reader As Utf8JsonReader,
                                              typeToConvert As Type,
                                              options As JsonSerializerOptions) As ThinkOption
 
-            If refReader.TokenType = JsonTokenType.True Then
+            If reader.TokenType = JsonTokenType.True Then
                 Return ThinkOption.Enabled
 
-            ElseIf refReader.TokenType = JsonTokenType.False Then
+            ElseIf reader.TokenType = JsonTokenType.False Then
                 Return ThinkOption.Disabled
 
-            ElseIf refReader.TokenType = JsonTokenType.String Then
-                Return refReader.GetString()
+            ElseIf reader.TokenType = JsonTokenType.String Then
+                Return reader.GetString()
 
             Else
                 Return Nothing

@@ -35,7 +35,7 @@ Namespace Entities
         ''' Reads and converts the JSON to type <see cref="FormatOption"/>.
         ''' </summary>
         ''' 
-        ''' <param name="refReader">
+        ''' <param name="reader">
         ''' The <see cref="Utf8JsonReader"/> to read from.
         ''' </param>
         ''' 
@@ -50,16 +50,16 @@ Namespace Entities
         ''' <returns>
         ''' The resulting <see cref="FormatOption"/>.
         ''' </returns>
-        Public Overrides Function Read(ByRef refReader As Utf8JsonReader,
+        Public Overrides Function Read(ByRef reader As Utf8JsonReader,
                                              typeToConvert As Type,
                                              options As JsonSerializerOptions) As FormatOption
 
-            If refReader.TokenType = JsonTokenType.String Then
-                Return CType(refReader.GetString(), FormatOption)
+            If reader.TokenType = JsonTokenType.String Then
+                Return reader.GetString()
 
-            ElseIf refReader.TokenType = JsonTokenType.StartObject Then
+            ElseIf reader.TokenType = JsonTokenType.StartObject Then
                 ' Safely capture the raw JSON schema object into a JsonElement.
-                Dim schemaObj As JsonElement = JsonSerializer.Deserialize(Of JsonElement)(refReader, options)
+                Dim schemaObj As JsonElement = JsonSerializer.Deserialize(Of JsonElement)(reader, options)
                 Return FormatOption.FromJsonSchema(schemaObj)
 
             Else

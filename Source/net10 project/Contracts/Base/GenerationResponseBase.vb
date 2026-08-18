@@ -11,6 +11,7 @@ Option Infer Off
 
 Imports System.ComponentModel
 Imports System.Diagnostics
+Imports System.Diagnostics.CodeAnalysis
 Imports System.Globalization
 Imports System.Text.Json.Serialization
 
@@ -266,6 +267,8 @@ Namespace Contracts
             MyBase.New()
         End Sub
 
+#Disable Warning IDE0079 ' Remove unnecessary suppression
+
         ''' <summary>
         ''' Initializes a new instance of the <see cref="CompletionResponse"/> class.
         ''' </summary>
@@ -321,12 +324,15 @@ Namespace Contracts
         ''' The time spent strictly generating the response tokens, in nanoseconds.
         ''' </param>
         <JsonConstructor>
+        <SuppressMessage("Major Code Smell", "S107:Methods should not have too many parameters", Justification:="Ollama API JSON deserialization requires a large number of parameters.")>
         Public Sub New(model As String,
                        createdAt As DateTimeOffset?,
                        done As Boolean?, doneReason As String,
                        totalDuration As Long?, loadDuration As Long?,
                        promptEvalCount As Integer?, promptEvalDuration As Long?,
                        evalCount As Integer?, evalDuration As Long?)
+
+#Enable Warning IDE0079 ' Remove unnecessary suppression
 
             Me.Model = model
             Me.CreatedAt = createdAt
