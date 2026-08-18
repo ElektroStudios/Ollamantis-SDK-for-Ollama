@@ -53,6 +53,6 @@ End Using
   "isSuccessful": false,
   "statusCode": 500,
   "reasonPhrase": "Internal Server Error",
-  "errorMessage": "open C:\\Users\\Administrador\\.ollama\\models\\manifests\\registry.ollama.ai\\namespace\\mymodel\\3b: El sistema no puede encontrar la ruta especificada."
+  "errorMessage": "open C:\\Users\\Administrator\\.ollama\\models\\manifests\\registry.ollama.ai\\namespace\\mymodel\\3b: The system cannot find the path specified."
 }
 ```
