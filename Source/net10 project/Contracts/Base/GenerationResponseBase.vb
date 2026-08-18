@@ -26,6 +26,7 @@ Namespace Contracts
     ''' <summary>
     ''' Provides the base implementation for generation response contracts.
     ''' </summary>
+    <SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression")>
     <EditorBrowsable(EditorBrowsableState.Never)>
     <Browsable(True)>
     <DebuggerStepThrough>
@@ -267,8 +268,6 @@ Namespace Contracts
             MyBase.New()
         End Sub
 
-#Disable Warning IDE0079 ' Remove unnecessary suppression
-
         ''' <summary>
         ''' Initializes a new instance of the <see cref="CompletionResponse"/> class.
         ''' </summary>
@@ -331,8 +330,6 @@ Namespace Contracts
                        totalDuration As Long?, loadDuration As Long?,
                        promptEvalCount As Integer?, promptEvalDuration As Long?,
                        evalCount As Integer?, evalDuration As Long?)
-
-#Enable Warning IDE0079 ' Remove unnecessary suppression
 
             Me.Model = model
             Me.CreatedAt = createdAt

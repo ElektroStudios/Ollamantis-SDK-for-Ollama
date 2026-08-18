@@ -32,6 +32,8 @@ Namespace Contracts
     ''' <see href="https://github.com/ollama/ollama/blob/main/docs/api.md#generate-a-completion">
     ''' Ollama API documentation</see>.
     ''' </remarks>
+    <SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression")>
+    <SuppressMessage("Major Code Smell", "S1133:Deprecated code should be removed", Justification:="Maintained for backward compatibility with older Ollama API versions.")>
     <EditorBrowsable(EditorBrowsableState.Always)>
     <Browsable(True)>
     <DebuggerStepThrough>
@@ -107,7 +109,6 @@ Namespace Contracts
         <Description("Optional. A boolean value indicating whether formatting will be applied to the prompt (False), rather than sending the prompt as-is (True). You may choose to set this value to True if you are specifying a full templated prompt in your request.")>
         Public Property Raw As Boolean
 
-#Disable Warning IDE0079 ' Remove unnecessary suppression
         ''' <summary>
         ''' Optional. Gets or sets the context parameter returned from a previous request to <c>/api/generate</c> endpoint (e.g., "<c>{ 12, 45, 902, 1 }</c>").
         ''' <para></para>
@@ -115,14 +116,12 @@ Namespace Contracts
         ''' <para></para>
         ''' Default value is null.
         ''' </summary>
-        <SuppressMessage("Major Code Smell", "S1133:Deprecated code should be removed", Justification:="Maintained for backward compatibility with older Ollama API versions.")>
         <Obsolete("This parameter is deprecated by the Ollama API.", False)>
         <JsonIgnore(Condition:=JsonIgnoreCondition.WhenWritingNull)>
         <JsonPropertyName("context")>
         <DisplayName("Context")>
         <Description("Optional. The context parameter returned from a previous request to /api/generate endpoint (e.g., { 12, 45, 902, 1 }). This array of tokens can be sent in the next request to keep a short conversational memory.")>
         Public Property Context As Integer()
-#Enable Warning IDE0079 ' Remove unnecessary suppression
 
         ''' <summary>
         ''' Gets the string to display in the debugger variable windows.
@@ -146,8 +145,6 @@ Namespace Contracts
         ''' </summary>
         Public Sub New()
         End Sub
-
-#Disable Warning IDE0079 ' Remove unnecessary suppression
 
         ''' <summary>
         ''' Initializes a new instance of the <see cref="CompletionRequest"/> class with the specified model and prompt, 
@@ -244,7 +241,6 @@ Namespace Contracts
               Optional keepAlive As KeepAliveOption = Nothing,
               Optional context As Integer() = Nothing)
 
-#Enable Warning IDE0079 ' Remove unnecessary suppression
 #Disable Warning BC40000 ' Type or member is obsolete
 
             Me.Model = model

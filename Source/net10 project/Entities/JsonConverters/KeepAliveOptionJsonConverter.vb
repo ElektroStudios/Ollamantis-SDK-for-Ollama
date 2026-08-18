@@ -11,6 +11,7 @@ Option Infer Off
 
 Imports System.ComponentModel
 Imports System.Diagnostics
+Imports System.Diagnostics.CodeAnalysis
 Imports System.Text.Json
 Imports System.Text.Json.Serialization
 
@@ -25,6 +26,8 @@ Namespace Entities
     ''' </summary>
     <EditorBrowsable(EditorBrowsableState.Never)>
     <Browsable(False)>
+    <SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression")>
+    <SuppressMessage("Major Code Smell", "S1133:Deprecated code should be removed", Justification:="Completely required in VB.NET.")>
     <Obsolete("Allow ref structs.", False)> ' VB.NET compiler hack required to allow Utf8JsonReader.
     <DebuggerStepThrough>
     Friend NotInheritable Class KeepAliveOptionJsonConverter : Inherits JsonConverter(Of KeepAliveOption)

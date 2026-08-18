@@ -29,6 +29,8 @@ Namespace Contracts
     ''' <see href="https://github.com/ollama/ollama/blob/main/docs/api.md#generate-a-completion">
     ''' Ollama API documentation</see>.
     ''' </remarks>
+    <SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression")>
+    <SuppressMessage("Major Code Smell", "S1133:Deprecated code should be removed", Justification:="Maintained for backward compatibility with older Ollama API versions.")>
     <EditorBrowsable(EditorBrowsableState.Always)>
     <Browsable(True)>
     <DebuggerStepThrough>
@@ -51,20 +53,17 @@ Namespace Contracts
         <Description("The generated response. If streaming is disabled, it contains the full response; if streaming is enabled, it contains the current streamed chunk.")>
         Public ReadOnly Property Response As String
 
-#Disable Warning IDE0079 ' Remove unnecessary suppression
         ''' <summary>
         ''' Gets the context parameter returned by the <c>/api/generate</c> endpoint 
         ''' (e.g., <c>{ 12, 45, 902, 1 }</c>).
         ''' <para></para>
         ''' This array of tokens can be sent in the next request to keep a short conversational memory.
         ''' </summary>
-        <SuppressMessage("Major Code Smell", "S1133:Deprecated code should be removed", Justification:="Maintained for backward compatibility with older Ollama API versions.")>
         <Obsolete("This parameter is deprecated by the Ollama API.", False)>
         <JsonPropertyName("context")>
         <DisplayName("Context")>
         <Description("The context parameter returned by the /api/generate endpoint (e.g., { 12, 45, 902, 1 }). This array of tokens can be sent in the next request to keep a short conversational memory.")>
         Public ReadOnly Property Context As Integer()
-#Enable Warning IDE0079 ' Remove unnecessary suppression
 
 #End Region
 
@@ -75,8 +74,6 @@ Namespace Contracts
         ''' </summary>
         Private Sub New()
         End Sub
-
-#Disable Warning IDE0079 ' Remove unnecessary suppression
 
         ''' <summary>
         ''' Initializes a new instance of the <see cref="CompletionResponse"/> class.
@@ -160,7 +157,6 @@ Namespace Contracts
                        promptEvalCount As Integer?, promptEvalDuration As Long?,
                        evalCount As Integer?, evalDuration As Long?)
 
-#Enable Warning IDE0079 ' Remove unnecessary suppression
 #Disable Warning BC40000 ' Type or member is obsolete
 
             MyBase.New(model:=model,
