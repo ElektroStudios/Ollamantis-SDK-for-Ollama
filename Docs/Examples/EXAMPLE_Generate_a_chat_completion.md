@@ -3,8 +3,8 @@
 Generates a chat completion using a specified model.
 
 - **Ollama Endpoint:** `POST /api/chat`
-- **Standard Method:** `OllamaClient.Management.GenerateChatCompletionAsync` / `GenerateChatCompletion`
-- **Streaming Method:** `OllamaClient.Management.StreamChatCompletionAsync`
+- **Standard Method:** `OllamaClient.Generation.GenerateChatCompletionAsync` / `GenerateChatCompletion`
+- **Streaming Method:** `OllamaClient.Generation.StreamChatCompletionAsync`
 
 ---
 

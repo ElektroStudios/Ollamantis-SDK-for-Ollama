@@ -3,8 +3,8 @@
 Generates a text completion from a prompt using a specified model.
 
 - **Ollama Endpoint:** `POST /api/generate`
-- **Standard Method:** `OllamaClient.Management.GenerateCompletionAsync` / `GenerateCompletion`
-- **Streaming Method:** `OllamaClient.Management.StreamCompletionAsync`
+- **Standard Method:** `OllamaClient.Generation.GenerateCompletionAsync` / `GenerateCompletion`
+- **Streaming Method:** `OllamaClient.Generation.StreamCompletionAsync`
 
 ---
 
