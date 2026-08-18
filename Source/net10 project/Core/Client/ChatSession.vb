@@ -356,9 +356,9 @@ Namespace Core
                                                           cancellationToken As CancellationToken
                                                          ) As Task(Of ChatCompletionResponse)
 
-            Return Await Me.Internal_GenerateOrStreamChatCompletionAsync(stream:=False,
-                                                                         request, onChunkReceived:=Nothing, cancellationToken
-                                                                        ).ConfigureAwait(continueOnCapturedContext:=False)
+            Return Await Me.InternalGenerateOrStreamChatCompletionAsync(stream:=False,
+                                                                        request, onChunkReceived:=Nothing, cancellationToken
+                                                                       ).ConfigureAwait(continueOnCapturedContext:=False)
         End Function
 
         ''' <summary>
@@ -535,9 +535,9 @@ Namespace Core
                                                         cancellationToken As CancellationToken
                                                        ) As Task(Of ChatCompletionResponse)
 
-            Return Await Me.Internal_GenerateOrStreamChatCompletionAsync(stream:=True,
-                                                                         request, onChunkReceived, cancellationToken
-                                                                        ).ConfigureAwait(continueOnCapturedContext:=False)
+            Return Await Me.InternalGenerateOrStreamChatCompletionAsync(stream:=True,
+                                                                        request, onChunkReceived, cancellationToken
+                                                                       ).ConfigureAwait(continueOnCapturedContext:=False)
         End Function
 
 #End Region
@@ -574,11 +574,11 @@ Namespace Core
         ''' A <see cref="Task(Of ChatCompletionResponse)"/> that represents the asynchronous operation. 
         ''' The task result contains the <see cref="ChatCompletionResponse"/> with the result of the operation.
         ''' </returns>
-        Private Async Function Internal_GenerateOrStreamChatCompletionAsync(stream As Boolean,
-                                                                            request As ChatCompletionRequest,
-                                                                            onChunkReceived As Action(Of ChatCompletionResponse),
-                                                                            cancellationToken As CancellationToken
-                                                                           ) As Task(Of ChatCompletionResponse)
+        Private Async Function InternalGenerateOrStreamChatCompletionAsync(stream As Boolean,
+                                                                           request As ChatCompletionRequest,
+                                                                           onChunkReceived As Action(Of ChatCompletionResponse),
+                                                                           cancellationToken As CancellationToken
+                                                                          ) As Task(Of ChatCompletionResponse)
 
             ArgumentValidator.ThrowIfNull(request, NameOf(request))
             If stream Then

@@ -361,7 +361,7 @@ Namespace Core
                     Return New PushModelResponse(status, digest, total, completed)
                 End Function
 
-            Return Await Me.Internal_StreamModelTransferAsync("push", request, onChunkReceived, factoryDelegate, cancellationToken).
+            Return Await Me.InternalStreamModelTransferAsync("push", request, onChunkReceived, factoryDelegate, cancellationToken).
                             ConfigureAwait(continueOnCapturedContext:=False)
         End Function
 
@@ -565,7 +565,7 @@ Namespace Core
                     Return New PullModelResponse(status, digest, total, completed)
                 End Function
 
-            Return Await Me.Internal_StreamModelTransferAsync("pull", request, onChunkReceived, factoryDelegate, cancellationToken).
+            Return Await Me.InternalStreamModelTransferAsync("pull", request, onChunkReceived, factoryDelegate, cancellationToken).
                             ConfigureAwait(continueOnCapturedContext:=False)
         End Function
 
@@ -1166,13 +1166,13 @@ Namespace Core
         ''' <exception cref="InvalidOperationException">
         ''' Thrown if the API stream finishes without yielding any valid JSON objects.
         ''' </exception>
-        Private Async Function Internal_StreamModelTransferAsync(Of TRequest As ModelTransferRequestBase,
-                                                                    TResponse As ModelTransferResponseBase)(endpoint As String,
-                                                                                                            request As TRequest,
-                                                                                                            onChunkReceived As Action(Of TResponse),
-                                                                                                            responseFactory As Func(Of String, String, Long?, Long?, TResponse),
-                                                                                                            cancellationToken As CancellationToken
-                                                                                                           ) As Task(Of TResponse)
+        Private Async Function InternalStreamModelTransferAsync(Of TRequest As ModelTransferRequestBase,
+                                                                   TResponse As ModelTransferResponseBase)(endpoint As String,
+                                                                                                           request As TRequest,
+                                                                                                           onChunkReceived As Action(Of TResponse),
+                                                                                                           responseFactory As Func(Of String, String, Long?, Long?, TResponse),
+                                                                                                           cancellationToken As CancellationToken
+                                                                                                          ) As Task(Of TResponse)
 
             ' Note: We later throw a 'NullReferenceException' in 'StreamingPostAsJsonAsync' if request or endpoint is null.
             ArgumentValidator.ThrowIfNull(onChunkReceived, NameOf(onChunkReceived))
