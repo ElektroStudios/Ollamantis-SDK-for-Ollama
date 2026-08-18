@@ -39,9 +39,9 @@ wrapper
   
 <h1>Ollamantis: The .NET SDK for Ollama</h1>
 
-### A comprehensive .NET client for the Ollama REST API to interact with large language models.
+### A comprehensive .NET client for the Ollama REST API to interact with LLMs.
 
-👷‍♂️🚧 THIS README, THE REPOSITORY CONTENTS AND THE SDK ARE UNDER CONSTRUCTION, SOME URLS AND .MD FILES MAYBE MISSING OR DESCRIBING/POINTING TO NON-RELATED PROJECTS ! 👷‍♂️🚧
+👷‍♂️🚧 THIS README AND THE REPOSITORY CONTENTS, SOME URLS AND .MD FILES MAYBE MISSING OR DESCRIBING/POINTING TO NON-RELATED PROJECTS ! 👷‍♂️🚧
 
 </div>
 
