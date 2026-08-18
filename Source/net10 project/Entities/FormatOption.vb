@@ -188,11 +188,17 @@ Namespace Entities
         ''' </returns>
         Public Overrides Function ToString() As String
 
-            Return If(Me.IsString,
-                      Me.StringValue,
-                      If(Me.SchemaObject IsNot Nothing,
-                         JsonSerializer.Serialize(Me.SchemaObject),
-                         String.Empty))
+            If Me.IsString Then
+                Return Me.StringValue
+
+            ElseIf Me.SchemaObject IsNot Nothing Then
+                Return JsonSerializer.Serialize(Me.SchemaObject)
+
+            Else
+                Return String.Empty
+
+            End If
+
         End Function
 
 #End Region

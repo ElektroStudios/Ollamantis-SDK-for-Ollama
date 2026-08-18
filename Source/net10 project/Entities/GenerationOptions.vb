@@ -348,8 +348,6 @@ Namespace Entities
         Public Sub New()
         End Sub
 
-#Disable Warning S117 ' Local variables should be camelCase
-
         ''' <summary>
         ''' Initializes a new instance of the <see cref="GenerationOptions"/> class with optional parameters.
         ''' </summary>
@@ -513,6 +511,7 @@ Namespace Entities
         ''' <para></para>
         ''' This parameter is deprecated by the Ollama API and is ignored by the server.
         ''' </param>
+        <SuppressMessage("sonar", "S117", Justification:="Preserves standard mathematical ML notation (e.g., N, K, P) to match the Ollama API.")>
         <SuppressMessage("Major Code Smell", "S107:Methods should not have too many parameters", Justification:="Ollama API JSON deserialization requires a large number of parameters.")>
         Public Sub New(Optional contextSize As Integer? = Nothing,
                        Optional repeatLastN As Integer? = Nothing,
@@ -566,8 +565,6 @@ Namespace Entities
 
 #Enable Warning BC40000 ' Type or member is obsolete
         End Sub
-
-#Enable Warning S117 ' Local variables should be camelCase
 
 #End Region
 

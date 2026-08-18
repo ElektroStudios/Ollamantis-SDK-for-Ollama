@@ -301,28 +301,13 @@ Namespace Core.Helpers
                 Dim reasonPhrase As String = httpResponse.ReasonPhrase
 
                 ' If it is an error, it is NOT an NDJSON stream. It is a single error JSON object.
+                ' Route it to the fallback parser and return immediately.
                 If Not isSuccess Then
                     Dim errorBody As String =
                         Await httpResponse.Content.CompatibleReadAsStringAsync(cancellationToken).
                                                    ConfigureAwait(continueOnCapturedContext:=False)
 
-                    ' Try to deserialize the error JSON, or instantiate a fallback if it's malformed.
-                    If Not String.IsNullOrWhiteSpace(errorBody) AndAlso errorBody.TrimStart().StartsWith("{"c) Then
-                        Try
-                            finalResult = JsonSerializer.Deserialize(Of TResult)(errorBody)
-                        Catch ex As JsonException
-                            finalResult = DirectCast(Activator.CreateInstance(GetType(TResult), nonPublic:=True), TResult)
-                        End Try
-                    Else
-                        finalResult = DirectCast(Activator.CreateInstance(GetType(TResult), nonPublic:=True), TResult)
-                    End If
-
-                    ' Hydrate the HTTP error metadata safely.
-                    Dim baseResponse As ResponseBase = TryCast(finalResult, ResponseBase)
-                    baseResponse?.HydrateMetadata(isSuccess, statusCode, reasonPhrase, errorBody)
-
-                    ' Return immediately. Do not invoke the onChunkReceived callback.
-                    Return finalResult
+                    Return OllamaClientHelper.ParseHttpErrorResponse(Of TResult)(errorBody, statusCode, reasonPhrase)
                 End If
 
                 ' If it is a success, parse the NDJSON stream line by line.
@@ -340,14 +325,13 @@ Namespace Core.Helpers
 
                         If Not String.IsNullOrWhiteSpace(line) Then
                             Dim chunk As TResult = JsonSerializer.Deserialize(Of TResult)(line)
+                            Dim baseChunk As ResponseBase = TryCast(chunk, ResponseBase)
 
                             ' Hydrate each chunk to catch potential embedded errors disguised under a 200 OK.
-                            Dim baseChunk As ResponseBase = TryCast(chunk, ResponseBase)
                             If baseChunk IsNot Nothing Then
                                 baseChunk.HydrateMetadata(isSuccess, statusCode, reasonPhrase, line)
 
                                 ' If Ollama embedded an error inside the stream, abort instantly.
-                                ' Do NOT invoke the chunk callback, act as if the whole request failed.
                                 If Not baseChunk.IsSuccessful Then
                                     finalResult = chunk
                                     Exit While
@@ -476,6 +460,57 @@ Namespace Core.Helpers
                                           httpResponse.StatusCode,
                                           httpResponse.ReasonPhrase,
                                           responseBody)
+
+            Return result
+        End Function
+
+        ''' <summary>
+        ''' Parses a non-success HTTP response into the expected generic result type, 
+        ''' instantiating a fallback if the payload is malformed.
+        ''' </summary>
+        ''' 
+        ''' <typeparam name="TResult">
+        ''' The expected type of the response object to be instantiated.
+        ''' </typeparam>
+        ''' 
+        ''' <param name="errorBody">
+        ''' The raw JSON string or plain text content returned by the HTTP error response.
+        ''' </param>
+        ''' 
+        ''' <param name="statusCode">
+        ''' The integer representation of the HTTP status code returned by the server (e.g., 404, 500).
+        ''' </param>
+        ''' 
+        ''' <param name="reasonPhrase">
+        ''' The HTTP reason phrase corresponding to the status code.
+        ''' </param>
+        ''' 
+        ''' <returns>
+        ''' An instance of <typeparamref name="TResult"/> containing the hydrated error metadata.
+        ''' </returns>
+        Private Function ParseHttpErrorResponse(Of TResult As Class)(errorBody As String,
+                                                                     statusCode As Integer,
+                                                                     reasonPhrase As String
+                                                                    ) As TResult
+            Dim result As TResult
+
+            ' Try to deserialize the error JSON, or instantiate a fallback if it is malformed.
+            If Not String.IsNullOrWhiteSpace(errorBody) AndAlso errorBody.TrimStart().StartsWith("{"c) Then
+                Try
+                    result = JsonSerializer.Deserialize(Of TResult)(errorBody)
+                Catch ex As JsonException
+                    result = DirectCast(Activator.CreateInstance(GetType(TResult), nonPublic:=True), TResult)
+                End Try
+            Else
+                result = DirectCast(Activator.CreateInstance(GetType(TResult), nonPublic:=True), TResult)
+            End If
+
+            ' Hydrate the HTTP error metadata safely. The 'isSuccessful' parameter is inherently False here.
+            Dim baseResponse As ResponseBase = TryCast(result, ResponseBase)
+            baseResponse?.HydrateMetadata(isSuccessful:=False,
+                                          statusCode,
+                                          reasonPhrase,
+                                          errorBody)
 
             Return result
         End Function
