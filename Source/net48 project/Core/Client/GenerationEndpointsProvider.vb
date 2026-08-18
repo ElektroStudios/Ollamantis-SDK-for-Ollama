@@ -589,10 +589,10 @@ Namespace Core
 
             ' Hydrate the newly created object with the HTTP 200 OK metadata from the final chunk.
             Dim baseAggregated As ResponseBase = generateResponse
-            baseAggregated?.HydrateMetadata(baseFinalChunk.IsSuccessful,
-                                            baseFinalChunk.StatusCode,
-                                            baseFinalChunk.ReasonPhrase,
-                                            rawJson:=Nothing)
+            baseAggregated.HydrateMetadata(baseFinalChunk.IsSuccessful,
+                                           baseFinalChunk.StatusCode,
+                                           baseFinalChunk.ReasonPhrase,
+                                           rawJson:=Nothing)
 
             Return generateResponse
         End Function
@@ -984,10 +984,10 @@ Namespace Core
 
             ' Hydrate the newly created object with the HTTP 200 OK metadata from the final chunk.
             Dim baseAggregated As ResponseBase = chatResponse
-            baseAggregated?.HydrateMetadata(baseFinalChunk.IsSuccessful,
-                                            baseFinalChunk.StatusCode,
-                                            baseFinalChunk.ReasonPhrase,
-                                            rawJson:=Nothing)
+            baseAggregated.HydrateMetadata(baseFinalChunk.IsSuccessful,
+                                           baseFinalChunk.StatusCode,
+                                           baseFinalChunk.ReasonPhrase,
+                                           rawJson:=Nothing)
 
             Return chatResponse
         End Function
