@@ -138,9 +138,7 @@ The scattering effect is strongest near the horizon, where sunlight has to trave
   "context": [
     151644,
     8948,
-    198,
     ...
-    803,
     41717,
     13
   ],
