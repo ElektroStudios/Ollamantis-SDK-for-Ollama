@@ -4,7 +4,7 @@
 env:
   SOLUTION_NAME: "Ollamantis"
   SOLUTION_EXT:  "slnx"
-  SONAR_PROJECT_KEY:  "ElektroStudios_Ollamantis"
+  SONAR_PROJECT_KEY:  "ElektroStudios_Ollamantis-SDK-for-Ollama"
   SONAR_ORGANIZATION: "elektrostudios"
 # ------------------------------------------
 

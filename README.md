@@ -5,6 +5,7 @@ artificial-intelligence
 c#
 c-sharp 
 chat
+cross-platform
 csharp
 csharp 
 dotnet
@@ -12,8 +13,10 @@ dotnet
 dotnet-core 
 dotnetcore 
 embeddings
+linux
 llm
 machine-learning
+macOS
 model-management
 net10
 netcore 
@@ -41,7 +44,7 @@ wrapper
 
 ### A comprehensive .NET client for the Ollama REST API to interact with LLMs.
 
-👷‍♂️🚧 THIS README AND THE REPOSITORY CONTENTS, SOME URLS AND .MD FILES MAYBE MISSING OR DESCRIBING/POINTING TO NON-RELATED PROJECTS ! 👷‍♂️🚧
+👷‍♂️🚧 THIS README AND THE REPOSITORY CONTENTS ARE UNDER CONSTRUCTION, SOME URLS AND .MD FILES MAYBE MISSING, MALFUNCTIONING OR DESCRIBING NON-RELATED PROJECTS ! 👷‍♂️🚧
 
 </div>
 
@@ -57,10 +60,10 @@ wrapper
   <br>
   <br>
     <a href="https://ci.appveyor.com/project/ElektroStudios/Ollamantis-SDK-for-Ollama"><img src="https://ci.appveyor.com/api/projects/status/github/ElektroStudios/Ollamantis-SDK-for-Ollama?svg=true" alt="AppVeyor CI"></a>
-    <a href="https://sonarcloud.io/summary/new_code?id=ElektroStudios_Ollamantis"><img src="https://sonarcloud.io/api/project_badges/measure?project=ElektroStudios_Ollamantis&metric=alert_status" alt="SonarCloud Quality Gate"></a>
+    <a href="https://sonarcloud.io/summary/new_code?id=ElektroStudios_Ollamantis-SDK-for-Ollama"><img src="https://sonarcloud.io/api/project_badges/measure?project=ElektroStudios_Ollamantis-SDK-for-Ollama&metric=alert_status" alt="SonarCloud Quality Gate"></a>
     <a href="https://github.com/ElektroStudios/Ollamantis-SDK-for-Ollama/releases/latest"><img src="https://img.shields.io/github/v/release/ElektroStudios/Ollamantis-SDK-for-Ollama" alt="Latest Release"></a>
     <a href="https://learn.microsoft.com/en-us/dotnet/visual-basic/"><img src="https://img.shields.io/badge/language-VB.NET-purple.svg?logo=visualbasic" alt="Language"></a>
-    <a href="https://learn.microsoft.com/en-us/windows/apps/"><img src="https://img.shields.io/badge/platform-Windows-lightgray.svg" alt="Platform"></a>
+    <a href="https://learn.microsoft.com/en-us/dotnet/core/introduction"><img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgray.svg" alt="Platform"></a>
     <a href="LICENSE"><img src="https://img.shields.io/github/license/ElektroStudios/Ollamantis-SDK-for-Ollama" alt="License"></a>
   <br>
     <a href="https://api.github.com/repos/ElektroStudios/Ollamantis-SDK-for-Ollama/zipball"><img src="https://img.shields.io/github/repo-size/ElektroStudios/Ollamantis-SDK-for-Ollama" alt="Repo size"></a>
@@ -129,6 +132,7 @@ Here is what sets it apart:
 
 ### 🦗 It's a f\*cking Mantis!
 - **The Apex Predator:** Lean, direct, and highly adapted to the environment, attacking every consumer-facing Ollama endpoint with lethal efficiency while translating your .NET configurations into raw REST requests easily with zero wasted energy.
+- **Territorial Dominance:** Fiercely cross-platform. It runs natively across **Windows, Linux, and macOS**.
 - **Perfect Mimicry:** Blending naturally into its ecosystem by accurately mirroring the official Ollama API specifications at the time of this release, giving you direct access to its actual features while molting legacy clutter like an old exoskeleton.
 - **Surgical Prey Dissection:** Tearing its target apart by enforcing a ruthless anatomical separation of concerns: Network contracts (`Ollamantis.Contracts`), domain entities (`Ollamantis.Entities`), and operational engines (`Ollamantis.Core`) are strictly divided so you always know exactly what is a transport envelope and what is an object in memory.
 
@@ -150,8 +154,9 @@ Here is what sets it apart:
 
 ## 📝 Requirements
 
-- .NET Framework 4.8, or .NET 10.0 or higher.
-- A running instance of [Ollama](https://ollama.com/) ([locally](https://ollama.com/download/windows) or remotely accessible).
+- Windows: Requires either .NET Framework 4.8 or .NET 10.0 or higher, depending on the specific build you choose to target.
+- Linux & macOS: Requires .NET 10.0 or higher.
+- A running instance of [Ollama](https://ollama.com/download) (locally or remotely accessible).
 
 ## 🚀 Getting Started
 
