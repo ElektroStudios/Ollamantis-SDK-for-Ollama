@@ -1,40 +1,42 @@
 ﻿<!-- Common Project Tags:
-ai
-api-client
-artificial-intelligence
-c#
+ai 
+api-client 
+artificial-intelligence 
+c# 
 c-sharp 
-chat
-cross-platform
-csharp
+chat 
+cross-platform 
 csharp 
-dotnet
 dotnet 
 dotnet-core 
 dotnetcore 
-embeddings
-linux
-llm
-machine-learning
-macOS
-model-management
-net10
+embeddings 
+linux 
+llm 
+llms 
+machine-learning 
+macOS 
+model-management 
+net10 
 netcore 
 netframework 
-ollama
-sdk
-streaming
+networking 
+ollama 
+ollama-api 
+ollama-client 
+rest-api 
+sdk 
+streaming 
 tool 
-tool-calling
+tool-calling 
 tools 
-vbnet
 vbnet 
-vision
+vision 
 visual-studio 
-vs-code
-vscode
+vs-code 
+vscode 
 windows 
-wrapper
+wrapper 
  -->
 
 <div align="center">
@@ -154,8 +156,8 @@ Here is what sets it apart:
 
 ## 📝 Requirements
 
-- Windows: Requires either .NET Framework 4.8 or .NET 10.0 or higher, depending on the specific build you choose to target.
-- Linux & macOS: Requires .NET 10.0 or higher.
+- Windows: Requires either .NET Framework 4.8 or [.NET 10](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) or higher, depending on the specific build you choose.
+- Linux & macOS: Requires [.NET 10](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) or higher.
 - A running instance of [Ollama](https://ollama.com/download) (locally or remotely accessible).
 
 ## 🚀 Getting Started
@@ -177,7 +179,7 @@ dotnet add package Ollamantis
 If you prefer not to use a package manager or need to work in an offline environment, you can download the compiled library directly.
 
 1. Navigate to the [Releases page](https://github.com/ElektroStudios/Ollamantis-SDK-for-Ollama/releases/latest).
-2. Download the latest `.zip` targeting either .NET Framework or .NET Core, depending on your environment.
+2. Download the latest `.zip` targeting either .NET Framework 4.8 or .NET 10, depending on your environment.
 3. Extract the contents to your preferred directory.
 4. In Visual Studio, right-click on your project's Dependencies (or References), select `Add Project Reference`..., browse to the extracted folder, and select the `Ollamantis.dll` file.
 
