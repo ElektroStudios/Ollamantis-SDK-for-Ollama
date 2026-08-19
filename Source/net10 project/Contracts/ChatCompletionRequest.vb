@@ -74,7 +74,7 @@ Namespace Contracts
         Public Property ConversationId As Guid
 
         ''' <summary>
-        ''' Gets the string to display in the debugger variable windows.
+        ''' Gets the string to display in the debugger DataTips and variable windows.
         ''' </summary>
         <Browsable(False)>
         <DebuggerBrowsable(DebuggerBrowsableState.Never)>

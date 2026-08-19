@@ -73,7 +73,7 @@ Namespace Contracts
         Protected Friend Property Stream As Boolean ' Note: Default value in Ollama API is True, but we set it to False here for convenience.
 
         ''' <summary>
-        ''' Gets the string to display in the debugger variable windows.
+        ''' Gets the string to display in the debugger DataTips and variable windows.
         ''' </summary>
         <Browsable(False)>
         <DebuggerBrowsable(DebuggerBrowsableState.Never)>

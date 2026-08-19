@@ -37,13 +37,13 @@ Namespace Core
         ''' <summary>
         ''' A cached, thread-safe instance of <see cref="JsonSerializerOptions"/> configured for compact (non-indented) JSON output.
         ''' </summary>
-        Private Shared ReadOnly JsonOptionsCompact As New Lazy(Of JsonSerializerOptions)(
+        Friend Shared ReadOnly JsonOptionsCompact As New Lazy(Of JsonSerializerOptions)(
             Function() JsonObjectBase.CreateJsonOptions(indented:=False))
 
         ''' <summary>
         ''' A cached, thread-safe instance of <see cref="JsonSerializerOptions"/> configured for indented (pretty-printed) JSON output.
         ''' </summary>
-        Private Shared ReadOnly JsonOptionsIndented As New Lazy(Of JsonSerializerOptions)(
+        Friend Shared ReadOnly JsonOptionsIndented As New Lazy(Of JsonSerializerOptions)(
             Function() JsonObjectBase.CreateJsonOptions(indented:=True))
 
 #End Region
