@@ -62,7 +62,7 @@ Namespace Core
     <EditorBrowsable(EditorBrowsableState.Always)>
     <Browsable(True)>
     <DebuggerStepThrough>
-    Public Class EnvironmentVariables
+    Public NotInheritable Class EnvironmentVariables
 
 #Region " Constructors "
 

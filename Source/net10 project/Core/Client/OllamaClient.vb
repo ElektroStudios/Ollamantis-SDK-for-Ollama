@@ -22,7 +22,7 @@ Namespace Core
 #Region " OllamaClient "
 
     ''' <summary>
-    ''' Provides the core client for interacting with the Ollama API.
+    ''' Provides the core client for interacting with a running instance of the Ollama server.
     ''' </summary>
     <EditorBrowsable(EditorBrowsableState.Always)>
     <Browsable(False)>

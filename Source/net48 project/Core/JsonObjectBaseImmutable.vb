@@ -29,7 +29,7 @@ Namespace Core
 #Region " JsonObjectBaseImmutable "
 
     ''' <summary>
-    ''' Provides a base implementation for contracts or entities that can be serialized to JSON and are immutable (read-only).
+    ''' Provides a base implementation for classes that can be serialized to JSON and are immutable (read-only).
     ''' </summary>
     <EditorBrowsable(EditorBrowsableState.Never)>
     <Browsable(True)>

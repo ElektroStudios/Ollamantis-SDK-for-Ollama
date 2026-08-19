@@ -24,7 +24,7 @@ Namespace Core
 #Region " JsonObjectBase "
 
     ''' <summary>
-    ''' Provides a base implementation for contracts or entities that can be serialized to JSON.
+    ''' Provides a base implementation for classes that can be serialized to JSON.
     ''' </summary>
     <EditorBrowsable(EditorBrowsableState.Never)>
     <Browsable(True)>
