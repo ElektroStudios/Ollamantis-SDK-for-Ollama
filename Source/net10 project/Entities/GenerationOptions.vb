@@ -535,6 +535,9 @@ Namespace Entities
                        Optional useMmap As Boolean? = Nothing,
                        Optional numa As Boolean? = Nothing)
 
+            ' Note: 'NOSONAR' comment on the specified commented lines suppresses the following SonarCloud issue:
+            '       "Rename this parameter to match the regular expression: '^[a-z][a-z0-9]*([A-Z]{1,3}[a-z0-9]+)*([A-Z]{2})?$'."
+
 #Disable Warning BC40000 ' Type or member is obsolete
 
             Me.ContextSize = contextSize
