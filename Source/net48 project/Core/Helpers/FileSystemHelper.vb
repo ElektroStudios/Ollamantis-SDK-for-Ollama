@@ -11,6 +11,7 @@ Option Infer Off
 
 Imports System.ComponentModel
 Imports System.Diagnostics
+Imports System.Runtime.Versioning
 
 #End Region
 
@@ -26,6 +27,8 @@ Namespace Core.Helpers
 
 #Region " Static Methods "
 
+#If Not NETCOREAPP Then
+
         ''' <summary>
         ''' Converts a standard file-system path into an extended-length path (prefixed with <c>\\?\</c>).
         ''' <para></para>
@@ -40,6 +43,62 @@ Namespace Core.Helpers
         ''' The extended-length path string (e.g., "<c>\\?\C:\Folder\File.txt</c>" or "<c>\\?\UNC\Server\Share</c>"), 
         ''' or the original <paramref name="standardPath"/> if it is empty, a relative path, or already extended.
         ''' </returns>
+        Friend Function GetExtendedPath(standardPath As String) As String
+
+            If String.IsNullOrWhiteSpace(standardPath) Then
+                Return standardPath
+            End If
+
+            ' Windows API strictly requires backslashes for extended paths.
+            Dim normalizedPath As String = standardPath.Replace("/"c, "\"c)
+
+            ' If it is already an extended path (\\?\) or a device path (\\.\), return as-is.
+            If normalizedPath.StartsWith("\\?\", StringComparison.Ordinal) OrElse
+               normalizedPath.StartsWith("\\.\", StringComparison.Ordinal) Then
+
+                Return normalizedPath
+            End If
+
+            ' Handle UNC paths: "\\Server\Share" -> "\\?\UNC\Server\Share"
+            If normalizedPath.StartsWith("\\", StringComparison.Ordinal) Then
+                Dim uncCore As String = normalizedPath.Substring(2)
+                Return $"\\?\UNC\{uncCore}"
+            End If
+
+            ' Handle fully qualified local paths (e.g., "C:\Folder")
+            ' Note: We explicitly avoid using 'Path.IsPathRooted()' because it returns True
+            '       for partial paths like "\Folder" (rooted to the current working drive).
+            '
+            '       Appending "\\?\" to that would create an invalid path ("\\?\\Folder"). 
+            '       Instead, we check explicitly for the drive letter format (Drive:\).
+            If normalizedPath.Length >= 3 AndAlso
+               normalizedPath.Chars(1) = ":"c AndAlso
+               normalizedPath.Chars(2) = "\"c Then
+
+                Return $"\\?\{normalizedPath}"
+            End If
+
+            ' If it is a relative path or an unknown format, return the original untouched.
+            Return standardPath
+        End Function
+
+#Else
+
+        ''' <summary>
+        ''' Converts a standard file-system path into an extended-length path (prefixed with <c>\\?\</c>).
+        ''' <para></para>
+        ''' Useful for bypass the traditional 260-character <c>MAX_PATH</c> limitation in Windows APIs.
+        ''' </summary>
+        ''' 
+        ''' <param name="standardPath">
+        ''' The standard file-system path to be converted (e.g., "C:\Folder\File.txt" or "\\Server\Share").
+        ''' </param>
+        ''' 
+        ''' <returns>
+        ''' The extended-length path string (e.g., "<c>\\?\C:\Folder\File.txt</c>" or "<c>\\?\UNC\Server\Share</c>"), 
+        ''' or the original <paramref name="standardPath"/> if it is empty, a relative path, or already extended.
+        ''' </returns>
+        <SupportedOSPlatform("windows")>
         Friend Function GetExtendedPath(standardPath As String) As String
 
             If String.IsNullOrWhiteSpace(standardPath) Then
@@ -97,7 +156,7 @@ Namespace Core.Helpers
         '''' The standard file-system path string without the extended prefix (e.g., "<c>C:\Folder\File.txt</c>" or "<c>\\Server\Share</c>"),
         '''' or the original <paramref name="extendedPath"/> if it is empty, null, or does not contain an extended prefix.
         '''' </returns>
-        '<DebuggerStepThrough>
+        '<SupportedOSPlatform("windows")>
         'Friend Function GetStandardPath(extendedPath As String) As String
         '
         '    If String.IsNullOrWhiteSpace(extendedPath) Then
@@ -118,6 +177,8 @@ Namespace Core.Helpers
         '
         '    Return extendedPath
         'End Function
+
+#End If
 
 #End Region
 

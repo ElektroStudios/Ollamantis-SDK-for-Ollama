@@ -17,7 +17,6 @@ Imports System.Text.Json.Serialization
 Imports Ollamantis.Contracts
 Imports Ollamantis.Core
 
-
 #End Region
 
 Namespace Entities

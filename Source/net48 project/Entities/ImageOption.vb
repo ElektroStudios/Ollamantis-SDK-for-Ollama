@@ -103,8 +103,18 @@ Namespace Entities
         ''' </returns>
         Public Shared Function FromFile(filePath As String) As ImageOption
 
+#If Not NETCOREAPP Then
             ' Convert the path to an extended-length path to bypass MAX_PATH limitations.
             Dim extendedPath As String = FileSystemHelper.GetExtendedPath(filePath)
+#Else
+            ' Initialize with the standard path as a fallback for Unix-like systems
+            Dim extendedPath As String = filePath
+
+            ' Convert the path to an extended-length path to bypass MAX_PATH limitations.
+            If RuntimeInformation.IsOSPlatform(OSPlatform.Windows) Then
+                extendedPath = FileSystemHelper.GetExtendedPath(filePath)
+            End If
+#End If
 
             Dim bytes As Byte() = File.ReadAllBytes(extendedPath)
 
