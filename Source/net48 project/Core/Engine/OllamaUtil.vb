@@ -248,14 +248,6 @@ Namespace Core
                 ' The request timed out or was explicitly canceled.
                 isRunning = False
 
-            Catch ex As UriFormatException
-                ' The provided endpoint string was not a valid URI.
-                Throw
-
-            Catch ex As Exception
-                ' Any other unexpected network failure.
-                Throw
-
             End Try
 
             Return isRunning
