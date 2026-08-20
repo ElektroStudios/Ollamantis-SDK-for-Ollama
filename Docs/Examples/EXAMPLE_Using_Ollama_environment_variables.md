@@ -1,6 +1,6 @@
 # ⚙️ Read and write Ollama environment variables
 
-Demonstrates how to configure process-level Ollama environment variables programmatically, and export them as formatted JSON.
+Demonstrates how to configure process-level Ollama environment variables programmatically, and represent them as formatted JSON.
 
 ---
 
@@ -12,10 +12,10 @@ using System;
 using Ollamantis.Core;
 using Ollamantis.Entities;
 
-internal static class Program
-{
-    private static void Main()
-    {
+internal static class Program {
+
+    private static void Main() {
+        
         // Set some process-level environment variables.
         EnvironmentVariables.OLLAMA_KEEP_ALIVE = KeepAliveOption.FromTimeSpan(TimeSpan.FromMinutes(5));
         EnvironmentVariables.OLLAMA_NUM_PARALLEL = 4;
@@ -30,6 +30,7 @@ internal static class Program
 
 ### VB.NET
 ```vb
+Imports System
 Imports Ollamantis.Core
 Imports Ollamantis.Entities
 
