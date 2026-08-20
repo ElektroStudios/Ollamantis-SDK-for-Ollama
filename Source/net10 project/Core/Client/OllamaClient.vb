@@ -59,29 +59,29 @@ Namespace Core
         Private httpClient_ As HttpClient
 
         ''' <summary>
-        ''' Gets or sets the base URL endpoint of the Ollama server.
+        ''' Gets or sets the base URI of the hosted Ollama server.
         ''' <para></para>
         ''' Default value is "<c>http://localhost:11434/</c>".
         ''' </summary>
-        <DisplayName("Endpoint")>
-        <Description("The base URL endpoint of the Ollama server")>
-        Public Property EndpointBase As String
+        <DisplayName("Host")>
+        <Description("The base URI of the hosted Ollama server.")>
+        Public Property Host As String
             Get
-                Return Me.endpointBase_
+                Return Me.host_
             End Get
             <DebuggerStepThrough>
             Set(value As String)
-                ArgumentValidator.ThrowIfNullOrWhiteSpace(value, NameOf(value), NameOf(Me.EndpointBase))
-                Me.endpointBase_ = value
+                ArgumentValidator.ThrowIfNullOrWhiteSpace(value, NameOf(value), NameOf(Me.Host))
+                Me.host_ = value
             End Set
         End Property
 
         ''' <summary>
-        ''' ( Backing field for the <see cref="OllamaClient.EndpointBase"/> property. )
+        ''' ( Backing field for the <see cref="OllamaClient.Host"/> property. )
         ''' <para></para>
-        ''' The base URL endpoint of the Ollama server.
+        ''' The base URI of the hosted Ollama server.
         ''' </summary>
-        Private endpointBase_ As String
+        Private host_ As String
 
         ''' <summary>
         ''' Gets access to the endpoints used for managing Ollama models, such as listing, pulling, copying, and deleting them.
@@ -107,15 +107,15 @@ Namespace Core
         ''' Initializes a new instance of the <see cref="OllamaClient"/> class.
         ''' </summary>
         ''' 
-        ''' <param name="endpointBase">
-        ''' Optional. The base URL endpoint of the Ollama server.
+        ''' <param name="host">
+        ''' Optional. The base URI of the hosted Ollama server (e.g., <c>"http://127.0.0.1:11434/"</c>).
         ''' <para></para>
         ''' Default value is "<c>http://localhost:11434/</c>".
         ''' </param>
-        Public Sub New(Optional endpointBase As String = "http://localhost:11434/")
+        Public Sub New(Optional host As String = "http://localhost:11434/")
 
             Me.httpClient_ = OllamaClient.InitializeDefaultHttpClient()
-            Me.EndpointBase = endpointBase
+            Me.Host = host
 
             Me.Management = New ManagementEndpointsProvider(Me)
             Me.Generation = New GenerationEndpointsProvider(Me)

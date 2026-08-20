@@ -89,7 +89,7 @@ Namespace Core.Helpers
             ArgumentValidator.ThrowIfNull(client, NameOf(client))
             ArgumentValidator.ThrowIfNullOrWhiteSpace(endpointAction, NameOf(endpointAction))
 
-            Dim requestUrl As String = $"{client.EndpointBase.TrimEnd("/"c)}/api/{endpointAction}"
+            Dim requestUrl As String = $"{client.Host.TrimEnd("/"c)}/api/{endpointAction}"
 
             Using httpRequest As New HttpRequestMessage(HttpMethod.Get, requestUrl),
                   httpResponse As HttpResponseMessage =
@@ -158,7 +158,7 @@ Namespace Core.Helpers
             ArgumentValidator.ThrowIfNullOrWhiteSpace(endpointAction, NameOf(endpointAction))
             ArgumentValidator.ThrowIfNull(request, NameOf(request))
 
-            Dim requestUrl As String = $"{client.EndpointBase.TrimEnd("/"c)}/api/{endpointAction}"
+            Dim requestUrl As String = $"{client.Host.TrimEnd("/"c)}/api/{endpointAction}"
             Dim jsonPayload As String = JsonSerializer.Serialize(request)
 
             Using content As New StringContent(jsonPayload, OllamaClientHelper.ContentEncoding, OllamaClientHelper.ContentMediaType),
@@ -286,7 +286,7 @@ Namespace Core.Helpers
             ArgumentValidator.ThrowIfNull(request, NameOf(request))
             ArgumentValidator.ThrowIfNull(onChunkReceived, NameOf(onChunkReceived))
 
-            Dim requestUrl As String = $"{client.EndpointBase.TrimEnd("/"c)}/api/{endpointAction}"
+            Dim requestUrl As String = $"{client.Host.TrimEnd("/"c)}/api/{endpointAction}"
             Dim jsonPayload As String = JsonSerializer.Serialize(request)
             Dim finalResult As TResult = Nothing
 

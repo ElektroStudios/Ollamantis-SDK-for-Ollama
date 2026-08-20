@@ -87,7 +87,7 @@ Namespace Core
 
         ''' <summary>
         ''' Determines whether the Ollama server is currently running and responding to HTTP requests 
-        ''' in the default local endpoint ("http://127.0.0.1:11434/") using a connection timeout of 5 seconds.
+        ''' in the default local host ("http://127.0.0.1:11434/") using a connection timeout of 5 seconds.
         ''' </summary>
         ''' 
         ''' <returns>
@@ -100,28 +100,28 @@ Namespace Core
 
         ''' <summary>
         ''' Determines whether the Ollama server is currently running and responding to HTTP requests 
-        ''' in the provided endpoint using a connection timeout of 5 seconds.
+        ''' in the provided host using a connection timeout of 5 seconds.
         ''' </summary>
         ''' 
-        ''' <param name="endpointBase">
-        ''' The base URL endpoint where the Ollama server is hosted (e.g., <c>"http://127.0.0.1:11434/"</c>).
+        ''' <param name="host">
+        ''' The base URI of the hosted Ollama server (e.g., <c>"http://127.0.0.1:11434/"</c>).
         ''' </param>
         ''' 
         ''' <returns>
         ''' Returns <see langword="True"/> if the Ollama server is running; otherwise, <see langword="False"/>.
         ''' </returns>
-        Public Shared Function IsOllamaServerReachable(endpointBase As String) As Boolean
+        Public Shared Function IsOllamaServerReachable(host As String) As Boolean
 
-            Return OllamaUtil.IsOllamaServerReachableAsync(endpointBase, CancellationToken.None).GetAwaiter().GetResult()
+            Return OllamaUtil.IsOllamaServerReachableAsync(host, CancellationToken.None).GetAwaiter().GetResult()
         End Function
 
         ''' <summary>
         ''' Determines whether the Ollama server is currently running and responding to HTTP requests 
-        ''' in the provided endpoint using the specified connection timeout.
+        ''' in the provided host using the specified connection timeout.
         ''' </summary>
         ''' 
-        ''' <param name="endpointBase">
-        ''' The base URL endpoint where the Ollama server is hosted (e.g., <c>"http://127.0.0.1:11434/"</c>).
+        ''' <param name="host">
+        ''' The base URI of the hosted Ollama server (e.g., <c>"http://127.0.0.1:11434/"</c>).
         ''' </param>
         ''' 
         ''' <param name="timeout">
@@ -131,14 +131,14 @@ Namespace Core
         ''' <returns>
         ''' Returns <see langword="True"/> if the Ollama server is running; otherwise, <see langword="False"/>.
         ''' </returns>
-        Public Shared Function IsOllamaServerReachable(endpointBase As String, timeout As TimeSpan) As Boolean
+        Public Shared Function IsOllamaServerReachable(host As String, timeout As TimeSpan) As Boolean
 
-            Return OllamaUtil.IsOllamaServerReachableAsync(endpointBase, timeout, CancellationToken.None).GetAwaiter().GetResult()
+            Return OllamaUtil.IsOllamaServerReachableAsync(host, timeout, CancellationToken.None).GetAwaiter().GetResult()
         End Function
 
         ''' <summary>
         ''' Asynchronously determines whether the Ollama server is currently running and responding to HTTP requests 
-        ''' in the default local endpoint ("http://127.0.0.1:11434/") using a connection timeout of 5 seconds.
+        ''' in the default local host ("http://127.0.0.1:11434/") using a connection timeout of 5 seconds.
         ''' </summary>
         ''' 
         ''' <param name="cancellationToken">
@@ -159,11 +159,11 @@ Namespace Core
 
         ''' <summary>
         ''' Asynchronously determines whether the Ollama server is currently running and responding to HTTP requests 
-        ''' in the provided endpoint using a connection timeout of 5 seconds.
+        ''' in the provided host using a connection timeout of 5 seconds.
         ''' </summary>
         ''' 
-        ''' <param name="endpointBase">
-        ''' The base URL endpoint where the Ollama server is hosted (e.g., <c>"http://127.0.0.1:11434/"</c>).
+        ''' <param name="host">
+        ''' The base URI of the hosted Ollama server (e.g., <c>"http://127.0.0.1:11434/"</c>).
         ''' </param>
         ''' 
         ''' <param name="cancellationToken">
@@ -177,20 +177,20 @@ Namespace Core
         ''' <para></para>
         ''' The task result is <see langword="True"/> if the Ollama server is running; otherwise, <see langword="False"/>.
         ''' </returns>
-        Public Shared Function IsOllamaServerReachableAsync(endpointBase As String,
+        Public Shared Function IsOllamaServerReachableAsync(host As String,
                                                             cancellationToken As CancellationToken
                                                            ) As Task(Of Boolean)
 
-            Return OllamaUtil.IsOllamaServerReachableAsync(endpointBase, TimeSpan.FromSeconds(5), cancellationToken)
+            Return OllamaUtil.IsOllamaServerReachableAsync(host, TimeSpan.FromSeconds(5), cancellationToken)
         End Function
 
         ''' <summary>
         ''' Asynchronously determines whether the Ollama server is currently running and responding to HTTP requests 
-        ''' in the provided endpoint using the specified connection timeout.
+        ''' in the provided host using the specified connection timeout.
         ''' </summary>
         ''' 
-        ''' <param name="endpointBase">
-        ''' The base URL endpoint where the Ollama server is hosted (e.g., <c>"http://127.0.0.1:11434/"</c>).
+        ''' <param name="host">
+        ''' The base URI of the hosted Ollama server (e.g., <c>"http://127.0.0.1:11434/"</c>).
         ''' </param>
         ''' 
         ''' <param name="timeout">
@@ -208,17 +208,17 @@ Namespace Core
         ''' <para></para>
         ''' The task result is <see langword="True"/> if the Ollama server is running; otherwise, <see langword="False"/>.
         ''' </returns>
-        Public Shared Async Function IsOllamaServerReachableAsync(endpointBase As String,
+        Public Shared Async Function IsOllamaServerReachableAsync(host As String,
                                                                   timeout As TimeSpan,
                                                                   cancellationToken As CancellationToken
                                                                  ) As Task(Of Boolean)
 
 #If Not NETCOREAPP Then
-            If String.IsNullOrWhiteSpace(endpointBase) Then
-                Throw New ArgumentNullException(NameOf(endpointBase))
+            If String.IsNullOrWhiteSpace(host) Then
+                Throw New ArgumentNullException(NameOf(host))
             End If
 #Else
-            ArgumentNullException.ThrowIfNullOrWhiteSpace(endpointBase, NameOf(endpointBase))
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(host, NameOf(host))
 #End If
 
             If timeout <= TimeSpan.Zero Then
@@ -226,15 +226,15 @@ Namespace Core
             End If
 
             Dim isRunning As Boolean = False
-            Dim formattedEndpoint As String = endpointBase.TrimEnd("/"c) & "/"
+            Dim formattedHost As String = host.TrimEnd("/"c) & "/"
 
             Try
                 Using client As New HttpClient()
                     client.Timeout = timeout
 
-                    ' The base Ollama endpoint returns a 200 OK "Ollama is running" text payload.
+                    ' The base Ollama host returns a 200 OK "Ollama is running" text payload.
                     Dim response As HttpResponseMessage =
-                        Await client.GetAsync(formattedEndpoint, cancellationToken).
+                        Await client.GetAsync(formattedHost, cancellationToken).
                                      ConfigureAwait(continueOnCapturedContext:=False)
 
                     isRunning = response.IsSuccessStatusCode
