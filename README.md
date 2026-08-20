@@ -46,8 +46,6 @@ wrapper
 
 ### A comprehensive .NET client for the Ollama REST API to interact with LLMs.
 
-👷‍♂️🚧 THIS README AND THE REPOSITORY CONTENTS ARE UNDER CONSTRUCTION, SOME URLS AND .MD FILES MAYBE MISSING, MALFUNCTIONING OR DESCRIBING NON-RELATED PROJECTS ! 👷‍♂️🚧
-
 </div>
 
 ------------------
@@ -69,7 +67,7 @@ wrapper
     <a href="LICENSE"><img src="https://img.shields.io/github/license/ElektroStudios/Ollamantis-SDK-for-Ollama" alt="License"></a>
   <br>
     <a href="https://api.github.com/repos/ElektroStudios/Ollamantis-SDK-for-Ollama/zipball"><img src="https://img.shields.io/github/repo-size/ElektroStudios/Ollamantis-SDK-for-Ollama" alt="Repo size"></a>
-    <a href="https://somsubhra.github.io/github-release-stats/?username=ElektroStudios&repository=Ollamantis"><img src="https://img.shields.io/github/downloads/ElektroStudios/Ollamantis-SDK-for-Ollama/total.svg?label=total%20downloads" alt="Total Downloads"></a>
+    <a href="https://somsubhra.github.io/github-release-stats/?username=ElektroStudios&repository=Ollamantis-SDK-for-Ollama"><img src="https://img.shields.io/github/downloads/ElektroStudios/Ollamantis-SDK-for-Ollama/total.svg?label=total%20downloads" alt="Total Downloads"></a>
     <a href="https://github.com/ElektroStudios/Ollamantis-SDK-for-Ollama/commits"><img src="https://img.shields.io/github/last-commit/ElektroStudios/Ollamantis-SDK-for-Ollama" alt="Last commit"></a>
     <a href="https://github.com/ElektroStudios/Ollamantis-SDK-for-Ollama/pulls"><img src="https://img.shields.io/github/issues-pr/ElektroStudios/Ollamantis-SDK-for-Ollama" alt="Pull Requests"></a>
     <a href="https://github.com/ElektroStudios/Ollamantis-SDK-for-Ollama/issues?q=is%3Aissue+is%3Aopen"><img src="https://img.shields.io/github/issues/ElektroStudios/Ollamantis-SDK-for-Ollama?color=blue" alt="Open Issues"></a><a href="https://github.com/ElektroStudios/Ollamantis-SDK-for-Ollama/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed/ElektroStudios/Ollamantis-SDK-for-Ollama?label=&color=28a745" alt="Closed Issues"></a>
