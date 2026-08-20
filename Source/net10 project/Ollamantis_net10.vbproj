@@ -9,7 +9,7 @@
     <Authors>ElektroStudios</Authors>
     <Company>ElektroStudios</Company>
     <Copyright>Copyright © ElektroStudios 2026</Copyright>
-    <Description>A comprehensive .NET client for the Ollama REST API to interact with large language models.</Description>
+    <Description>A comprehensive .NET client for the Ollama REST API to interact with LLMs.</Description>
     <FileVersion>1.0.0</FileVersion>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <NeutralLanguage>en</NeutralLanguage>
