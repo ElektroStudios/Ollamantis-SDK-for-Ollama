@@ -41,7 +41,7 @@ Namespace Core
     ''' </summary>
     ''' 
     ''' <remarks>
-    ''' For additional information, see the 
+    ''' For additional information, use the "<c>ollama serve -h</c>" command, or see the 
     ''' <see href="https://github.com/ollama/ollama/blob/main/cmd/cmd.go">
     ''' cmd.go source-code</see>:
     ''' <para></para>
@@ -79,11 +79,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>LLAMA_ARG_FIT</c> environment variable for the current process.
         ''' <para></para>
-        ''' Configures fitting parameters for the underlying llama.cpp backend execution.
+        ''' Enable llama.cpp automatic fit of unset memory options (default: "on").
         ''' </summary>
         <JsonPropertyName("LLAMA_ARG_FIT")>
         <DisplayName("LLAMA_ARG_FIT")>
-        <Description("The LLAMA_ARG_FIT environment variable for the current process. Configures fitting parameters for the underlying llama.cpp backend execution.")>
+        <Description("The LLAMA_ARG_FIT environment variable for the current process. Enable llama.cpp automatic fit of unset memory options (default: ""on"").")>
         Public Shared Property LLAMA_ARG_FIT As String
             Get
                 Return Environment.GetEnvironmentVariable("LLAMA_ARG_FIT")
@@ -96,7 +96,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>LLAMA_ARG_FIT</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Configures fitting parameters for the underlying llama.cpp backend execution.
+        ''' Enable llama.cpp automatic fit of unset memory options (default: "on").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -104,7 +104,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("LLAMA_ARG_FIT (Targeted)")>
-        <Description("The LLAMA_ARG_FIT environment variable for the specified target. Configures fitting parameters for the underlying llama.cpp backend execution.")>
+        <Description("The LLAMA_ARG_FIT environment variable for the specified target. Enable llama.cpp automatic fit of unset memory options (default: ""on"").")>
         Public Shared Property LLAMA_ARG_FIT(target As EnvironmentVariableTarget) As String
             Get
                 Return Environment.GetEnvironmentVariable("LLAMA_ARG_FIT", target)
@@ -117,24 +117,24 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>LLAMA_ARG_FIT_TARGET</c> environment variable for the current process.
         ''' <para></para>
-        ''' Configures the fitting targets for the underlying llama.cpp backend execution.
+        ''' Configures the target free VRAM margin per device for llama.cpp fit (in MiB).
         ''' </summary>
         <JsonPropertyName("LLAMA_ARG_FIT_TARGET")>
         <DisplayName("LLAMA_ARG_FIT_TARGET")>
-        <Description("The LLAMA_ARG_FIT_TARGET environment variable for the current process. Configures the fitting targets for the underlying llama.cpp backend execution.")>
-        Public Shared Property LLAMA_ARG_FIT_TARGET As String
+        <Description("The LLAMA_ARG_FIT_TARGET environment variable for the current process. Configures the target free VRAM margin per device for llama.cpp fit (in MiB).")>
+        Public Shared Property LLAMA_ARG_FIT_TARGET As Integer?
             Get
-                Return Environment.GetEnvironmentVariable("LLAMA_ARG_FIT_TARGET")
+                Return EnvironmentVariables.GetIntegerVariable("LLAMA_ARG_FIT_TARGET")
             End Get
-            Set(value As String)
-                Environment.SetEnvironmentVariable("LLAMA_ARG_FIT_TARGET", value)
+            Set(value As Integer?)
+                EnvironmentVariables.SetIntegerVariable("LLAMA_ARG_FIT_TARGET", value)
             End Set
         End Property
 
         ''' <summary>
         ''' Gets or sets the <c>LLAMA_ARG_FIT_TARGET</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Configures the fitting targets for the underlying llama.cpp backend execution.
+        ''' Configures the target free VRAM margin per device for llama.cpp fit (in MiB).
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -142,13 +142,13 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("LLAMA_ARG_FIT_TARGET (Targeted)")>
-        <Description("The LLAMA_ARG_FIT_TARGET environment variable for the specified target. Configures the fitting targets for the underlying llama.cpp backend execution.")>
-        Public Shared Property LLAMA_ARG_FIT_TARGET(target As EnvironmentVariableTarget) As String
+        <Description("The LLAMA_ARG_FIT_TARGET environment variable for the specified target. Configures the target free VRAM margin per device for llama.cpp fit (in MiB).")>
+        Public Shared Property LLAMA_ARG_FIT_TARGET(target As EnvironmentVariableTarget) As Integer?
             Get
-                Return Environment.GetEnvironmentVariable("LLAMA_ARG_FIT_TARGET", target)
+                Return EnvironmentVariables.GetIntegerVariable("LLAMA_ARG_FIT_TARGET", target)
             End Get
-            Set(value As String)
-                Environment.SetEnvironmentVariable("LLAMA_ARG_FIT_TARGET", value, target)
+            Set(value As Integer?)
+                EnvironmentVariables.SetIntegerVariable("LLAMA_ARG_FIT_TARGET", value, target)
             End Set
         End Property
 
@@ -193,11 +193,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_HOST</c> environment variable for the current process.
         ''' <para></para>
-        ''' Defines the IP address and port where the Ollama server will listen (e.g., "0.0.0.0:11434").
+        ''' Defines the IP address and port where the Ollama server will listen (default: "127.0.0.1:11434").
         ''' </summary>
         <JsonPropertyName("OLLAMA_HOST")>
         <DisplayName("OLLAMA_HOST")>
-        <Description("The OLLAMA_HOST environment variable for the current process. Defines the IP address and port where the Ollama server will listen (e.g., ""0.0.0.0:11434"").")>
+        <Description("The OLLAMA_HOST environment variable for the current process. Defines the IP address and port where the Ollama server will listen (default: ""127.0.0.1:11434"").")>
         Public Shared Property OLLAMA_HOST As String
             Get
                 Return Environment.GetEnvironmentVariable("OLLAMA_HOST")
@@ -210,7 +210,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_HOST</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Defines the IP address and port where the Ollama server will listen (e.g., "0.0.0.0:11434").
+        ''' Defines the IP address and port where the Ollama server will listen (default: "127.0.0.1:11434").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -218,7 +218,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_HOST (Targeted)")>
-        <Description("The OLLAMA_HOST environment variable for the specified target. Defines the IP address and port where the Ollama server will listen (e.g., ""0.0.0.0:11434"").")>
+        <Description("The OLLAMA_HOST environment variable for the specified target. Defines the IP address and port where the Ollama server will listen (default: ""127.0.0.1:11434"").")>
         Public Shared Property OLLAMA_HOST(target As EnvironmentVariableTarget) As String
             Get
                 Return Environment.GetEnvironmentVariable("OLLAMA_HOST", target)
@@ -231,11 +231,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_ORIGINS</c> environment variable for the current process.
         ''' <para></para>
-        ''' Defines the allowed CORS origins (e.g., "*").
+        ''' A comma separated list of allowed origins (e.g., "*").
         ''' </summary>
         <JsonPropertyName("OLLAMA_ORIGINS")>
         <DisplayName("OLLAMA_ORIGINS")>
-        <Description("The OLLAMA_ORIGINS environment variable for the current process. Defines the allowed CORS origins (e.g., ""*"").")>
+        <Description("The OLLAMA_ORIGINS environment variable for the current process. A comma separated list of allowed origins (e.g., ""*"").")>
         Public Shared Property OLLAMA_ORIGINS As String
             Get
                 Return Environment.GetEnvironmentVariable("OLLAMA_ORIGINS")
@@ -248,7 +248,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_ORIGINS</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Defines the allowed CORS origins (e.g., "*").
+        ''' DA comma separated list of allowed origins (e.g., "*").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -256,7 +256,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_ORIGINS (Targeted)")>
-        <Description("The OLLAMA_ORIGINS environment variable for the specified target. Defines the allowed CORS origins (e.g., ""*"").")>
+        <Description("The OLLAMA_ORIGINS environment variable for the specified target. A comma separated list of allowed origins (e.g., ""*"").")>
         Public Shared Property OLLAMA_ORIGINS(target As EnvironmentVariableTarget) As String
             Get
                 Return Environment.GetEnvironmentVariable("OLLAMA_ORIGINS", target)
@@ -307,11 +307,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_KV_CACHE_TYPE</c> environment variable for the current process.
         ''' <para></para>
-        ''' Specifies the quantization type for the Key-Value cache (e.g., "q4_0" or "q8_0").
+        ''' Specifies the quantization type for the Key-Value (K/V) cache (default: "f16").
         ''' </summary>
         <JsonPropertyName("OLLAMA_KV_CACHE_TYPE")>
         <DisplayName("OLLAMA_KV_CACHE_TYPE")>
-        <Description("The OLLAMA_KV_CACHE_TYPE environment variable for the current process. Specifies the quantization type for the Key-Value cache (e.g., ""q4_0"" or ""q8_0"").")>
+        <Description("The OLLAMA_KV_CACHE_TYPE environment variable for the current process. SSpecifies the quantization type for the Key-Value (K/V) cache (default: ""f16"").")>
         Public Shared Property OLLAMA_KV_CACHE_TYPE As String
             Get
                 Return Environment.GetEnvironmentVariable("OLLAMA_KV_CACHE_TYPE")
@@ -324,7 +324,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_KV_CACHE_TYPE</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Specifies the quantization type for the Key-Value cache (e.g., "q4_0" or "q8_0").
+        ''' Specifies the quantization type for the Key-Value (K/V) cache (default: "f16").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -332,7 +332,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_KV_CACHE_TYPE (Targeted)")>
-        <Description("The OLLAMA_KV_CACHE_TYPE environment variable for the specified target. Specifies the quantization type for the Key-Value cache (e.g., ""q4_0"" or ""q8_0"").")>
+        <Description("The OLLAMA_KV_CACHE_TYPE environment variable for the specified target. Specifies the quantization type for the Key-Value (K/V) cache (default: ""f16"").")>
         Public Shared Property OLLAMA_KV_CACHE_TYPE(target As EnvironmentVariableTarget) As String
             Get
                 Return Environment.GetEnvironmentVariable("OLLAMA_KV_CACHE_TYPE", target)
@@ -383,11 +383,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_MAX_LOADED_MODELS</c> environment variable for the current process.
         ''' <para></para>
-        ''' Defines the maximum number of distinct models that can be held in VRAM simultaneously (e.g., "2").
+        ''' Defines the maximum number of loaded models simultaneously per GPU (e.g., "2").
         ''' </summary>
         <JsonPropertyName("OLLAMA_MAX_LOADED_MODELS")>
         <DisplayName("OLLAMA_MAX_LOADED_MODELS")>
-        <Description("The OLLAMA_MAX_LOADED_MODELS environment variable for the current process. Defines the maximum number of distinct models that can be held in VRAM simultaneously (e.g., ""2"").")>
+        <Description("The OLLAMA_MAX_LOADED_MODELS environment variable for the current process. Defines the maximum number of loaded models simultaneously per GPU (e.g., ""2"").")>
         Public Shared Property OLLAMA_MAX_LOADED_MODELS As Integer?
             Get
                 Return EnvironmentVariables.GetIntegerVariable("OLLAMA_MAX_LOADED_MODELS")
@@ -400,7 +400,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_MAX_LOADED_MODELS</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Defines the maximum number of distinct models that can be held in VRAM simultaneously (e.g., "2").
+        ''' Defines the maximum number of loaded models simultaneously per GPU (e.g., "2").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -408,7 +408,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_MAX_LOADED_MODELS (Targeted)")>
-        <Description("The OLLAMA_MAX_LOADED_MODELS environment variable for the specified target. Defines the maximum number of distinct models that can be held in VRAM simultaneously (e.g., ""2"").")>
+        <Description("The OLLAMA_MAX_LOADED_MODELS environment variable for the specified target. Defines the maximum number of loaded models simultaneously per GPU (e.g., ""2"").")>
         Public Shared Property OLLAMA_MAX_LOADED_MODELS(target As EnvironmentVariableTarget) As Integer?
             Get
                 Return EnvironmentVariables.GetIntegerVariable("OLLAMA_MAX_LOADED_MODELS", target)
@@ -421,11 +421,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_KEEP_ALIVE</c> environment variable for the current process.
         ''' <para></para>
-        ''' Defines how long a model stays loaded in memory after its last request (e.g., "5m").
+        ''' Defines the duration that models stay loaded in memory (e.g., "5m").
         ''' </summary>
         <JsonPropertyName("OLLAMA_KEEP_ALIVE")>
         <DisplayName("OLLAMA_KEEP_ALIVE")>
-        <Description("The OLLAMA_KEEP_ALIVE environment variable for the current process. Defines how long a model stays loaded in memory after its last request (e.g., ""5m"").")>
+        <Description("The OLLAMA_KEEP_ALIVE environment variable for the current process. Defines the duration that models stay loaded in memory (e.g., ""5m"").")>
         Public Shared Property OLLAMA_KEEP_ALIVE As KeepAliveOption
             Get
                 Dim rawValue As String =
@@ -453,7 +453,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_KEEP_ALIVE</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Defines how long a model stays loaded in memory after its last request (e.g., "5m").
+        ''' Defines the duration that models stay loaded in memory (e.g., "5m").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -461,7 +461,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_KEEP_ALIVE (Targeted)")>
-        <Description("The OLLAMA_KEEP_ALIVE environment variable for the specified target. Defines how long a model stays loaded in memory after its last request (e.g., ""5m"").")>
+        <Description("The OLLAMA_KEEP_ALIVE environment variable for the specified target. Defines the duration that models stay loaded in memory (e.g., ""5m"").")>
         Public Shared Property OLLAMA_KEEP_ALIVE(target As EnvironmentVariableTarget) As KeepAliveOption
             Get
                 Dim rawValue As String =
@@ -527,24 +527,24 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_CONTEXT_LENGTH</c> environment variable for the current process.
         ''' <para></para>
-        ''' Overrides the default context length (window size) for all models.
+        ''' Defines the context length to use for all models unless otherwise specified (default: 4k/32k/256k based on VRAM).
         ''' </summary>
         <JsonPropertyName("OLLAMA_CONTEXT_LENGTH")>
         <DisplayName("OLLAMA_CONTEXT_LENGTH")>
-        <Description("The OLLAMA_CONTEXT_LENGTH environment variable for the current process. Overrides the default context length (window size) for all models.")>
-        Public Shared Property OLLAMA_CONTEXT_LENGTH As Integer?
+        <Description("The OLLAMA_CONTEXT_LENGTH environment variable for the current process. Defines the context length to use for all models unless otherwise specified (default: 4k/32k/256k based on VRAM).")>
+        Public Shared Property OLLAMA_CONTEXT_LENGTH As String
             Get
-                Return EnvironmentVariables.GetIntegerVariable("OLLAMA_CONTEXT_LENGTH")
+                Return Environment.GetEnvironmentVariable("OLLAMA_CONTEXT_LENGTH")
             End Get
-            Set(value As Integer?)
-                EnvironmentVariables.SetIntegerVariable("OLLAMA_CONTEXT_LENGTH", value)
+            Set(value As String)
+                Environment.SetEnvironmentVariable("OLLAMA_CONTEXT_LENGTH", value)
             End Set
         End Property
 
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_CONTEXT_LENGTH</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Overrides the default context length (window size) for all models.
+        ''' Defines the context length to use for all models unless otherwise specified (default: 4k/32k/256k based on VRAM).
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -552,24 +552,24 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_CONTEXT_LENGTH (Targeted)")>
-        <Description("The OLLAMA_CONTEXT_LENGTH environment variable for the specified target. Overrides the default context length (window size) for all models.")>
-        Public Shared Property OLLAMA_CONTEXT_LENGTH(target As EnvironmentVariableTarget) As Integer?
+        <Description("The OLLAMA_CONTEXT_LENGTH environment variable for the specified target. Defines the context length to use for all models unless otherwise specified (default: 4k/32k/256k based on VRAM).")>
+        Public Shared Property OLLAMA_CONTEXT_LENGTH(target As EnvironmentVariableTarget) As String
             Get
-                Return EnvironmentVariables.GetIntegerVariable("OLLAMA_CONTEXT_LENGTH", target)
+                Return Environment.GetEnvironmentVariable("OLLAMA_CONTEXT_LENGTH", target)
             End Get
-            Set(value As Integer?)
-                EnvironmentVariables.SetIntegerVariable("OLLAMA_CONTEXT_LENGTH", value, target)
+            Set(value As String)
+                Environment.SetEnvironmentVariable("OLLAMA_CONTEXT_LENGTH", value, target)
             End Set
         End Property
 
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_MAX_TRANSFER_STREAMS</c> environment variable for the current process.
         ''' <para></para>
-        ''' Defines the maximum number of concurrent streams used when pulling or pushing models.
+        ''' Defines the maximum parallel transfer streams for safetensors model pulls/pushes (default: 4).
         ''' </summary>
         <JsonPropertyName("OLLAMA_MAX_TRANSFER_STREAMS")>
         <DisplayName("OLLAMA_MAX_TRANSFER_STREAMS")>
-        <Description("The OLLAMA_MAX_TRANSFER_STREAMS environment variable for the current process. Defines the maximum number of concurrent streams used when pulling or pushing models.")>
+        <Description("The OLLAMA_MAX_TRANSFER_STREAMS environment variable for the current process. Defines the maximum parallel transfer streams for safetensors model pulls/pushes (default: 4).")>
         Public Shared Property OLLAMA_MAX_TRANSFER_STREAMS As Integer?
             Get
                 Return EnvironmentVariables.GetIntegerVariable("OLLAMA_MAX_TRANSFER_STREAMS")
@@ -582,7 +582,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_MAX_TRANSFER_STREAMS</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Defines the maximum number of concurrent streams used when pulling or pushing models.
+        ''' Defines the maximum parallel transfer streams for safetensors model pulls/pushes (default: 4).
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -590,7 +590,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_MAX_TRANSFER_STREAMS (Targeted)")>
-        <Description("The OLLAMA_MAX_TRANSFER_STREAMS environment variable for the specified target. Defines the maximum number of concurrent streams used when pulling or pushing models.")>
+        <Description("The OLLAMA_MAX_TRANSFER_STREAMS environment variable for the specified target. Defines the maximum parallel transfer streams for safetensors model pulls/pushes (default: 4).")>
         Public Shared Property OLLAMA_MAX_TRANSFER_STREAMS(target As EnvironmentVariableTarget) As Integer?
             Get
                 Return EnvironmentVariables.GetIntegerVariable("OLLAMA_MAX_TRANSFER_STREAMS", target)
@@ -603,11 +603,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_MAX_QUEUE</c> environment variable for the current process.
         ''' <para></para>
-        ''' Defines the maximum number of generation requests that can be queued before rejecting new ones.
+        ''' Defines the maximum number of incoming server requests that can be queued before rejecting new ones.
         ''' </summary>
         <JsonPropertyName("OLLAMA_MAX_QUEUE")>
         <DisplayName("OLLAMA_MAX_QUEUE")>
-        <Description("The OLLAMA_MAX_QUEUE environment variable for the current process. Defines the maximum number of generation requests that can be queued before rejecting new ones.")>
+        <Description("The OLLAMA_MAX_QUEUE environment variable for the current process. Defines the maximum number of incoming server requests that can be queued before rejecting new ones.")>
         Public Shared Property OLLAMA_MAX_QUEUE As Integer?
             Get
                 Return EnvironmentVariables.GetIntegerVariable("OLLAMA_MAX_QUEUE")
@@ -620,7 +620,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_MAX_QUEUE</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Defines the maximum number of generation requests that can be queued before rejecting new ones.
+        ''' Defines the maximum number of incoming server requests that can be queued before rejecting new ones.
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -628,7 +628,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_MAX_QUEUE (Targeted)")>
-        <Description("The OLLAMA_MAX_QUEUE environment variable for the specified target. Defines the maximum number of generation requests that can be queued before rejecting new ones.")>
+        <Description("The OLLAMA_MAX_QUEUE environment variable for the specified target. Defines the maximum number of incoming server requests that can be queued before rejecting new ones.")>
         Public Shared Property OLLAMA_MAX_QUEUE(target As EnvironmentVariableTarget) As Integer?
             Get
                 Return EnvironmentVariables.GetIntegerVariable("OLLAMA_MAX_QUEUE", target)
@@ -641,11 +641,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_NO_CLOUD</c> environment variable for the current process.
         ''' <para></para>
-        ''' Disables interactions with remote cloud endpoints when set to "1".
+        ''' Disable Ollama cloud features like remote inference and web search (e.g., "1").
         ''' </summary>
         <JsonPropertyName("OLLAMA_NO_CLOUD")>
         <DisplayName("OLLAMA_NO_CLOUD")>
-        <Description("The OLLAMA_NO_CLOUD environment variable for the current process. Disables interactions with remote cloud endpoints when set to ""1"".")>
+        <Description("The OLLAMA_NO_CLOUD environment variable for the current process. Disable Ollama cloud features like remote inference and web search (e.g., ""1"").")>
         Public Shared Property OLLAMA_NO_CLOUD As Boolean?
             Get
                 Return EnvironmentVariables.GetBooleanVariable("OLLAMA_NO_CLOUD")
@@ -658,7 +658,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_NO_CLOUD</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Disables interactions with remote cloud endpoints when set to "1".
+        ''' Disable Ollama cloud features like remote inference and web search (e.g., "1").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -666,7 +666,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_NO_CLOUD (Targeted)")>
-        <Description("The OLLAMA_NO_CLOUD environment variable for the specified target. Disables interactions with remote cloud endpoints when set to ""1"".")>
+        <Description("The OLLAMA_NO_CLOUD environment variable for the specified target. Disable Ollama cloud features like remote inference and web search (e.g., ""1"").")>
         Public Shared Property OLLAMA_NO_CLOUD(target As EnvironmentVariableTarget) As Boolean?
             Get
                 Return EnvironmentVariables.GetBooleanVariable("OLLAMA_NO_CLOUD", target)
@@ -679,11 +679,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_NOPRUNE</c> environment variable for the current process.
         ''' <para></para>
-        ''' Instructs the engine not to prune model blobs during startup or execution (e.g., "1").
+        ''' Instructs the engine not to prune model blobs on startup (e.g., "1").
         ''' </summary>
         <JsonPropertyName("OLLAMA_NOPRUNE")>
         <DisplayName("OLLAMA_NOPRUNE")>
-        <Description("The OLLAMA_NOPRUNE environment variable for the current process. Instructs the engine not to prune model blobs during startup or execution (e.g., ""1"").")>
+        <Description("The OLLAMA_NOPRUNE environment variable for the current process. Instructs the engine not to prune model blobs on startup (e.g., ""1"").")>
         Public Shared Property OLLAMA_NOPRUNE As Boolean?
             Get
                 Return EnvironmentVariables.GetBooleanVariable("OLLAMA_NOPRUNE")
@@ -696,7 +696,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_NOPRUNE</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Instructs the engine not to prune model blobs during startup or execution (e.g., "1").
+        ''' Instructs the engine not to prune model blobs on startup (e.g., "1").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -704,7 +704,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_NOPRUNE (Targeted)")>
-        <Description("The OLLAMA_NOPRUNE environment variable for the specified target. Instructs the engine not to prune model blobs during startup or execution (e.g., ""1"").")>
+        <Description("The OLLAMA_NOPRUNE environment variable for the specified target. Instructs the engine not to prune model blobs on startup (e.g., ""1"").")>
         Public Shared Property OLLAMA_NOPRUNE(target As EnvironmentVariableTarget) As Boolean?
             Get
                 Return EnvironmentVariables.GetBooleanVariable("OLLAMA_NOPRUNE", target)
@@ -717,11 +717,11 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_SCHED_SPREAD</c> environment variable for the current process.
         ''' <para></para>
-        ''' Spreads the scheduling and loading of model layers across multiple available GPUs.
+        ''' Always schedule model across all available GPUs (e.g., "1").
         ''' </summary>
         <JsonPropertyName("OLLAMA_SCHED_SPREAD")>
         <DisplayName("OLLAMA_SCHED_SPREAD")>
-        <Description("The OLLAMA_SCHED_SPREAD environment variable for the current process. Spreads the scheduling and loading of model layers across multiple available GPUs.")>
+        <Description("The OLLAMA_SCHED_SPREAD environment variable for the current process. Always schedule model across all available GPUs (e.g., ""1"").")>
         Public Shared Property OLLAMA_SCHED_SPREAD As Boolean?
             Get
                 Return EnvironmentVariables.GetBooleanVariable("OLLAMA_SCHED_SPREAD")
@@ -734,7 +734,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_SCHED_SPREAD</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Spreads the scheduling and loading of model layers across multiple available GPUs.
+        ''' Always schedule model across all available GPUs (e.g., "1").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -742,7 +742,7 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_SCHED_SPREAD (Targeted)")>
-        <Description("The OLLAMA_SCHED_SPREAD environment variable for the specified target. Spreads the scheduling and loading of model layers across multiple available GPUs.")>
+        <Description("The OLLAMA_SCHED_SPREAD environment variable for the specified target. Always schedule model across all available GPUs (e.g., ""1"").")>
         Public Shared Property OLLAMA_SCHED_SPREAD(target As EnvironmentVariableTarget) As Boolean?
             Get
                 Return EnvironmentVariables.GetBooleanVariable("OLLAMA_SCHED_SPREAD", target)
@@ -793,24 +793,24 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_GPU_OVERHEAD</c> environment variable for the current process.
         ''' <para></para>
-        ''' Defines the amount of VRAM strictly reserved for GPU overhead.
+        ''' Defines a portion of VRAM to reserve per GPU (in bytes).
         ''' </summary>
         <JsonPropertyName("OLLAMA_GPU_OVERHEAD")>
         <DisplayName("OLLAMA_GPU_OVERHEAD")>
-        <Description("The OLLAMA_GPU_OVERHEAD environment variable for the current process. Defines the amount of VRAM strictly reserved for GPU overhead.")>
-        Public Shared Property OLLAMA_GPU_OVERHEAD As String
+        <Description("The OLLAMA_GPU_OVERHEAD environment variable for the current process. Defines a portion of VRAM to reserve per GPU (in bytes).")>
+        Public Shared Property OLLAMA_GPU_OVERHEAD As Integer?
             Get
-                Return Environment.GetEnvironmentVariable("OLLAMA_GPU_OVERHEAD")
+                Return EnvironmentVariables.GetIntegerVariable("OLLAMA_GPU_OVERHEAD")
             End Get
-            Set(value As String)
-                Environment.SetEnvironmentVariable("OLLAMA_GPU_OVERHEAD", value)
+            Set(value As Integer?)
+                EnvironmentVariables.SetIntegerVariable("OLLAMA_GPU_OVERHEAD", value)
             End Set
         End Property
 
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_GPU_OVERHEAD</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Defines the amount of VRAM strictly reserved for GPU overhead.
+        ''' Defines a portion of VRAM to reserve per GPU (in bytes).
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -818,13 +818,13 @@ Namespace Core
         ''' </param>
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_GPU_OVERHEAD (Targeted)")>
-        <Description("The OLLAMA_GPU_OVERHEAD environment variable for the specified target. Defines the amount of VRAM strictly reserved for GPU overhead.")>
-        Public Shared Property OLLAMA_GPU_OVERHEAD(target As EnvironmentVariableTarget) As String
+        <Description("The OLLAMA_GPU_OVERHEAD environment variable for the specified target. Defines a portion of VRAM to reserve per GPU (in bytes).")>
+        Public Shared Property OLLAMA_GPU_OVERHEAD(target As EnvironmentVariableTarget) As Integer?
             Get
-                Return Environment.GetEnvironmentVariable("OLLAMA_GPU_OVERHEAD", target)
+                Return EnvironmentVariables.GetIntegerVariable("OLLAMA_GPU_OVERHEAD", target)
             End Get
-            Set(value As String)
-                Environment.SetEnvironmentVariable("OLLAMA_GPU_OVERHEAD", value, target)
+            Set(value As Integer?)
+                EnvironmentVariables.SetIntegerVariable("OLLAMA_GPU_OVERHEAD", value, target)
             End Set
         End Property
 
@@ -869,16 +869,16 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_LOAD_TIMEOUT</c> environment variable for the current process.
         ''' <para></para>
-        ''' Defines the maximum time allowed for a model to load into memory.
+        ''' Defines the maximum time allowed for a model to load into memory (e.g., "5m").
         ''' </summary>
         <JsonPropertyName("OLLAMA_LOAD_TIMEOUT")>
         <DisplayName("OLLAMA_LOAD_TIMEOUT")>
         <Description("The OLLAMA_LOAD_TIMEOUT environment variable for the current process. Defines the maximum time allowed for a model to load into memory (e.g., ""5m"").")>
-        Public Shared Property OLLAMA_LOAD_TIMEOUT As String
+        Public Shared Property OLLAMA_LOAD_TIMEOUT As KeepAliveOption
             Get
                 Return Environment.GetEnvironmentVariable("OLLAMA_LOAD_TIMEOUT")
             End Get
-            Set(value As String)
+            Set(value As KeepAliveOption)
                 Environment.SetEnvironmentVariable("OLLAMA_LOAD_TIMEOUT", value)
             End Set
         End Property
@@ -886,7 +886,7 @@ Namespace Core
         ''' <summary>
         ''' Gets or sets the <c>OLLAMA_LOAD_TIMEOUT</c> environment variable for the specified target.
         ''' <para></para>
-        ''' Defines the maximum time allowed for a model to load into memory.
+        ''' Defines the maximum time allowed for a model to load into memory (e.g., "5m").
         ''' </summary>
         ''' 
         ''' <param name="target">
@@ -895,11 +895,11 @@ Namespace Core
         <SupportedOSPlatform("windows")>
         <DisplayName("OLLAMA_LOAD_TIMEOUT (Targeted)")>
         <Description("The OLLAMA_LOAD_TIMEOUT environment variable for the specified target. Defines the maximum time allowed for a model to load into memory (e.g., ""5m"").")>
-        Public Shared Property OLLAMA_LOAD_TIMEOUT(target As EnvironmentVariableTarget) As String
+        Public Shared Property OLLAMA_LOAD_TIMEOUT(target As EnvironmentVariableTarget) As KeepAliveOption
             Get
                 Return Environment.GetEnvironmentVariable("OLLAMA_LOAD_TIMEOUT", target)
             End Get
-            Set(value As String)
+            Set(value As KeepAliveOption)
                 Environment.SetEnvironmentVariable("OLLAMA_LOAD_TIMEOUT", value, target)
             End Set
         End Property
