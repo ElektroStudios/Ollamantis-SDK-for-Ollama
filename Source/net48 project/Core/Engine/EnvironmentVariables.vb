@@ -753,44 +753,6 @@ Namespace Core
         End Property
 
         ''' <summary>
-        ''' Gets or sets the <c>OLLAMA_LLM_LIBRARY</c> environment variable for the current process.
-        ''' <para></para>
-        ''' Forces the use of a specific LLM backend execution library (e.g., "cpu", "cuda", "rocm", "metal").
-        ''' </summary>
-        <JsonPropertyName("OLLAMA_LLM_LIBRARY")>
-        <DisplayName("OLLAMA_LLM_LIBRARY")>
-        <Description("The OLLAMA_LLM_LIBRARY environment variable for the current process. Forces the use of a specific LLM backend execution library (e.g., ""cpu"", ""cuda"", ""rocm"", ""metal"").")>
-        Public Shared Property OLLAMA_LLM_LIBRARY As String
-            Get
-                Return Environment.GetEnvironmentVariable("OLLAMA_LLM_LIBRARY")
-            End Get
-            Set(value As String)
-                Environment.SetEnvironmentVariable("OLLAMA_LLM_LIBRARY", value)
-            End Set
-        End Property
-
-        ''' <summary>
-        ''' Gets or sets the <c>OLLAMA_LLM_LIBRARY</c> environment variable for the specified target.
-        ''' <para></para>
-        ''' Forces the use of a specific LLM backend execution library (e.g., "cpu", "cuda", "rocm", "metal").
-        ''' </summary>
-        ''' 
-        ''' <param name="target">
-        ''' The <see cref="EnvironmentVariableTarget"/> location where the environment variable is stored or retrieved in Windows.
-        ''' </param>
-        <SupportedOSPlatform("windows")>
-        <DisplayName("OLLAMA_LLM_LIBRARY (Targeted)")>
-        <Description("The OLLAMA_LLM_LIBRARY environment variable for the specified target. Forces the use of a specific LLM backend execution library (e.g., ""cpu"", ""cuda"", ""rocm"", ""metal"").")>
-        Public Shared Property OLLAMA_LLM_LIBRARY(target As EnvironmentVariableTarget) As String
-            Get
-                Return Environment.GetEnvironmentVariable("OLLAMA_LLM_LIBRARY", target)
-            End Get
-            Set(value As String)
-                Environment.SetEnvironmentVariable("OLLAMA_LLM_LIBRARY", value, target)
-            End Set
-        End Property
-
-        ''' <summary>
         ''' Gets or sets the <c>OLLAMA_GPU_OVERHEAD</c> environment variable for the current process.
         ''' <para></para>
         ''' Defines a portion of VRAM to reserve per GPU (in bytes).
@@ -977,6 +939,44 @@ Namespace Core
             End Get
             Set(value As Boolean?)
                 EnvironmentVariables.SetBooleanVariable("OLLAMA_NOHISTORY", value, target)
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the <c>OLLAMA_LLM_LIBRARY</c> environment variable for the current process.
+        ''' <para></para>
+        ''' Forces the use of a specific LLM backend execution library (e.g., "cpu", "cuda", "rocm", "metal").
+        ''' </summary>
+        <JsonPropertyName("OLLAMA_LLM_LIBRARY")>
+        <DisplayName("OLLAMA_LLM_LIBRARY")>
+        <Description("The OLLAMA_LLM_LIBRARY environment variable for the current process. Forces the use of a specific LLM backend execution library (e.g., ""cpu"", ""cuda"", ""rocm"", ""metal"").")>
+        Public Shared Property OLLAMA_LLM_LIBRARY As String
+            Get
+                Return Environment.GetEnvironmentVariable("OLLAMA_LLM_LIBRARY")
+            End Get
+            Set(value As String)
+                Environment.SetEnvironmentVariable("OLLAMA_LLM_LIBRARY", value)
+            End Set
+        End Property
+
+        ''' <summary>
+        ''' Gets or sets the <c>OLLAMA_LLM_LIBRARY</c> environment variable for the specified target.
+        ''' <para></para>
+        ''' Forces the use of a specific LLM backend execution library (e.g., "cpu", "cuda", "rocm", "metal").
+        ''' </summary>
+        ''' 
+        ''' <param name="target">
+        ''' The <see cref="EnvironmentVariableTarget"/> location where the environment variable is stored or retrieved in Windows.
+        ''' </param>
+        <SupportedOSPlatform("windows")>
+        <DisplayName("OLLAMA_LLM_LIBRARY (Targeted)")>
+        <Description("The OLLAMA_LLM_LIBRARY environment variable for the specified target. Forces the use of a specific LLM backend execution library (e.g., ""cpu"", ""cuda"", ""rocm"", ""metal"").")>
+        Public Shared Property OLLAMA_LLM_LIBRARY(target As EnvironmentVariableTarget) As String
+            Get
+                Return Environment.GetEnvironmentVariable("OLLAMA_LLM_LIBRARY", target)
+            End Get
+            Set(value As String)
+                Environment.SetEnvironmentVariable("OLLAMA_LLM_LIBRARY", value, target)
             End Set
         End Property
 
