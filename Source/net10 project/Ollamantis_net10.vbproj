@@ -4,7 +4,7 @@
     <ApplicationIcon>App.256.ico</ApplicationIcon>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <AssemblyName>Ollamantis</AssemblyName>
-    <AssemblyTitle>Ollamantis</AssemblyTitle>
+    <AssemblyTitle>Ollamantis: The .NET SDK for Ollama</AssemblyTitle>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Authors>ElektroStudios</Authors>
     <Company>ElektroStudios</Company>
@@ -28,12 +28,13 @@
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl>https://github.com/ElektroStudios/Ollamantis</RepositoryUrl>
+    <RepositoryUrl>https://github.com/ElektroStudios/Ollamantis-SDK-for-Ollama</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageId>Ollamantis</PackageId>
     <Version>1.0.0</Version>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -45,11 +46,15 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\README.nuget.md">
+    <None Include="..\App.256.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\App.256.png">
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.nuget.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
