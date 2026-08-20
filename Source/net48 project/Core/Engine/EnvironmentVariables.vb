@@ -547,25 +547,16 @@ Namespace Core
         <Description("The " & OLLAMA_KEEP_ALIVE_NAME & " environment variable for the current process. Defines the duration that models stay loaded in memory (e.g., ""5m"").")>
         Public Shared Property OLLAMA_KEEP_ALIVE As KeepAliveOption
             Get
-                Dim rawValue As String =
-                    Environment.GetEnvironmentVariable(OLLAMA_KEEP_ALIVE_NAME)
-
-                If String.IsNullOrWhiteSpace(rawValue) Then
-                    Return Nothing
-                End If
-
-                Try
-                    Dim keepaliveOption As KeepAliveOption = rawValue
-                    Return keepaliveOption
-
-                Catch ex As Exception
-                    ' The value in the environment variable is completely incompatible.
-                    ' We swallow the exception to prevent crashes and return Nothing.
-                    Return Nothing
-                End Try
+                Dim rawValue As String = Environment.GetEnvironmentVariable(OLLAMA_KEEP_ALIVE_NAME)
+                Dim result As KeepAliveOption = EnvironmentVariables.ParseKeepAliveOption(rawValue)
+                Return result
             End Get
             Set(value As KeepAliveOption)
-                Environment.SetEnvironmentVariable(OLLAMA_KEEP_ALIVE_NAME, value)
+                Dim stringValue As String = Nothing
+                If value IsNot Nothing Then
+                    stringValue = value.Value
+                End If
+                Environment.SetEnvironmentVariable(OLLAMA_KEEP_ALIVE_NAME, stringValue)
             End Set
         End Property
 
@@ -583,25 +574,16 @@ Namespace Core
         <Description("The " & OLLAMA_KEEP_ALIVE_NAME & " environment variable for the specified target. Defines the duration that models stay loaded in memory (e.g., ""5m"").")>
         Public Shared Property OLLAMA_KEEP_ALIVE(target As EnvironmentVariableTarget) As KeepAliveOption
             Get
-                Dim rawValue As String =
-                    Environment.GetEnvironmentVariable(OLLAMA_KEEP_ALIVE_NAME, target)
-
-                If String.IsNullOrWhiteSpace(rawValue) Then
-                    Return Nothing
-                End If
-
-                Try
-                    Dim keepaliveOption As KeepAliveOption = rawValue
-                    Return keepaliveOption
-
-                Catch ex As Exception
-                    ' The value in the environment variable is completely incompatible.
-                    ' We swallow the exception to prevent crashes and return Nothing.
-                    Return Nothing
-                End Try
+                Dim rawValue As String = Environment.GetEnvironmentVariable(OLLAMA_KEEP_ALIVE_NAME, target)
+                Dim result As KeepAliveOption = EnvironmentVariables.ParseKeepAliveOption(rawValue)
+                Return result
             End Get
             Set(value As KeepAliveOption)
-                Environment.SetEnvironmentVariable(OLLAMA_KEEP_ALIVE_NAME, value, target)
+                Dim stringValue As String = Nothing
+                If value IsNot Nothing Then
+                    stringValue = value.Value
+                End If
+                Environment.SetEnvironmentVariable(OLLAMA_KEEP_ALIVE_NAME, stringValue, target)
             End Set
         End Property
 
@@ -957,10 +939,16 @@ Namespace Core
         <Description("The " & OLLAMA_LOAD_TIMEOUT_NAME & " environment variable for the current process. Defines the maximum time allowed for a model to load into memory (e.g., ""5m"").")>
         Public Shared Property OLLAMA_LOAD_TIMEOUT As KeepAliveOption
             Get
-                Return Environment.GetEnvironmentVariable(OLLAMA_LOAD_TIMEOUT_NAME)
+                Dim rawValue As String = Environment.GetEnvironmentVariable(OLLAMA_LOAD_TIMEOUT_NAME)
+                Dim result As KeepAliveOption = ParseKeepAliveOption(rawValue)
+                Return result
             End Get
             Set(value As KeepAliveOption)
-                Environment.SetEnvironmentVariable(OLLAMA_LOAD_TIMEOUT_NAME, value)
+                Dim stringValue As String = Nothing
+                If value IsNot Nothing Then
+                    stringValue = value.Value
+                End If
+                Environment.SetEnvironmentVariable(OLLAMA_LOAD_TIMEOUT_NAME, stringValue)
             End Set
         End Property
 
@@ -978,10 +966,16 @@ Namespace Core
         <Description("The " & OLLAMA_LOAD_TIMEOUT_NAME & " environment variable for the specified target. Defines the maximum time allowed for a model to load into memory (e.g., ""5m"").")>
         Public Shared Property OLLAMA_LOAD_TIMEOUT(target As EnvironmentVariableTarget) As KeepAliveOption
             Get
-                Return Environment.GetEnvironmentVariable(OLLAMA_LOAD_TIMEOUT_NAME, target)
+                Dim rawValue As String = Environment.GetEnvironmentVariable(OLLAMA_LOAD_TIMEOUT_NAME, target)
+                Dim result As KeepAliveOption = EnvironmentVariables.ParseKeepAliveOption(rawValue)
+                Return result
             End Get
             Set(value As KeepAliveOption)
-                Environment.SetEnvironmentVariable(OLLAMA_LOAD_TIMEOUT_NAME, value, target)
+                Dim stringValue As String = Nothing
+                If value IsNot Nothing Then
+                    stringValue = value.Value
+                End If
+                Environment.SetEnvironmentVariable(OLLAMA_LOAD_TIMEOUT_NAME, stringValue, target)
             End Set
         End Property
 
@@ -1360,7 +1354,19 @@ Namespace Core
                 If prop.GetIndexParameters().Length = 0 Then
 
                     Dim rawValue As Object = prop.GetValue(Nothing)
-                    Dim stringValue As String = If(rawValue IsNot Nothing, CType(rawValue, String), Nothing)
+                    Dim stringValue As String = Nothing
+
+                    If rawValue IsNot Nothing Then
+                        ' Intercept booleans to format them as Ollama expects ("1" or "0")
+                        If TypeOf rawValue Is Boolean Then
+                            Dim boolValue As Boolean = DirectCast(rawValue, Boolean)
+                            stringValue = If(boolValue, "1", "0")
+                        Else
+                            ' Call .ToString() directly on the object instead of trying to cast it.
+                            ' This respects overridden ToString methods in custom entities like KeepAliveOption.
+                            stringValue = rawValue.ToString()
+                        End If
+                    End If
 
                     stateDictionary.Add(prop.Name, stringValue)
                 End If
@@ -1373,6 +1379,44 @@ Namespace Core
 
             Return JsonSerializer.Serialize(stateDictionary, options)
 
+        End Function
+
+#End Region
+
+#Region " Private Methods "
+
+        ''' <summary>
+        ''' Parses a raw string value into a <see cref="KeepAliveOption"/> instance.
+        ''' </summary>
+        ''' 
+        ''' <param name="rawValue">
+        ''' The raw string value retrieved from the environment variable.
+        ''' </param>
+        ''' 
+        ''' <returns>
+        ''' A <see cref="KeepAliveOption"/> instance if the conversion is successful; 
+        ''' otherwise, <see langword="Nothing"/> if the string is null, whitespace, or completely incompatible.
+        ''' </returns>
+        ''' 
+        ''' <remarks>
+        ''' This method safely handles invalid formats by swallowing conversion exceptions 
+        ''' to ensure that malformed environment variables do not cause runtime crashes.
+        ''' </remarks>
+        Private Shared Function ParseKeepAliveOption(rawValue As String) As KeepAliveOption
+
+            If String.IsNullOrWhiteSpace(rawValue) Then
+                Return Nothing
+            End If
+
+            Try
+                Dim keepAliveResult As KeepAliveOption = rawValue
+                Return keepAliveResult
+
+            Catch ex As Exception
+                ' The value in the environment variable is completely incompatible.
+                ' We swallow the exception to prevent crashes and return Nothing.
+                Return Nothing
+            End Try
         End Function
 
 #End Region

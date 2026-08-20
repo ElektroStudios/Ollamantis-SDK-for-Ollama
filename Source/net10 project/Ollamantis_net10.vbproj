@@ -33,7 +33,7 @@
     <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageId>Ollamantis</PackageId>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
