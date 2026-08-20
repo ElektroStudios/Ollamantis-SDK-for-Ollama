@@ -288,6 +288,7 @@ End Using
  - [📋 Copy a local model](Docs/Examples/EXAMPLE_Copy_a_local_model.md)
  - [🗑️ Delete a local model](Docs/Examples/EXAMPLE_Delete_a_local_model.md)
  - [🏷️ Get Ollama server version](Docs/Examples/EXAMPLE_Get_Ollama_version.md)
+ - [⚙️ Read and write Ollama environment variables](Docs/Examples/EXAMPLE_Using_Ollama_environment_variables.md)
 
 ---
 
