@@ -88,6 +88,52 @@ Namespace Ollamantis.Tests.Core
             End Using
         End Function
 
+        ''' <summary>Verifies that a streamed turn can be retried after it fails following a partial response.</summary>
+        <Theory>
+        <InlineData(False)>
+        <InlineData(True)>
+        Public Async Function APartialStreamDoesNotPolluteHistory(callbackThrows As Boolean) As Task
+            Using handler As New MockHttpMessageHandler(),
+                  client As OllamaClient = handler.CreateClient()
+                Dim session As New ChatSession(client)
+                Dim id As Guid = Guid.NewGuid()
+                handler.Enqueue(Reply)
+                Assert.True((Await SendTurnAsync(session, CreateRequest(id, "first"), stream:=True).
+                             ConfigureAwait(False)).IsSuccessful)
+
+                Dim request As ChatCompletionRequest = CreateRequest(id, "retry")
+                Const partialChunk As String = "{""message"":{""role"":""assistant"",""content"":""partial""}}"
+                If callbackThrows Then
+                    handler.Enqueue(partialChunk & vbLf & Reply)
+                    Dim expected As New InvalidOperationException("The callback failed.")
+                    Dim actual As InvalidOperationException = Await Assert.ThrowsAsync(Of InvalidOperationException)(
+                        Function() session.StreamChatCompletionAsync(request,
+                            Sub(chunk As ChatCompletionResponse)
+                                Assert.Equal("partial", chunk.Message.Content)
+                                Throw expected
+                            End Sub, CancellationToken.None)).ConfigureAwait(False)
+                    Assert.Same(expected, actual)
+                Else
+                    handler.Enqueue(partialChunk & vbLf & "{""error"":""generation stopped""}")
+                    Dim chunks As New List(Of ChatCompletionResponse)()
+                    Dim failure As ChatCompletionResponse = Await session.StreamChatCompletionAsync(
+                        request, AddressOf chunks.Add, CancellationToken.None).ConfigureAwait(False)
+                    Assert.Equal("partial", Assert.Single(chunks).Message.Content)
+                    Assert.False(failure.IsSuccessful)
+                    Assert.Equal(200, failure.StatusCode)
+                    Assert.Equal("generation stopped", failure.ErrorMessage)
+                End If
+
+                handler.Enqueue(Reply)
+                Assert.True((Await SendTurnAsync(session, request, stream:=True).
+                             WaitAsync(TimeSpan.FromSeconds(5)).ConfigureAwait(False)).IsSuccessful)
+                Assert.Equal(3, handler.Requests.Count)
+                Assert.Equal(New String() {"first", "reply", "retry"}, GetMessageContents(handler.Requests(1).Body))
+                Assert.Equal(New String() {"first", "reply", "retry"}, GetMessageContents(handler.Requests(2).Body))
+                Assert.Equal("retry", Assert.Single(request.Messages).Content)
+            End Using
+        End Function
+
         ''' <summary>Verifies that overlapping turns for the same conversation use committed history.</summary>
         <Theory>
         <InlineData(False)>

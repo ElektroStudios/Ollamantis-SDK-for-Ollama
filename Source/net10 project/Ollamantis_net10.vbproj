@@ -10,7 +10,7 @@
     <Company>ElektroStudios</Company>
     <Copyright>Copyright © ElektroStudios 2026</Copyright>
     <Description>A comprehensive .NET client for the Ollama REST API to interact with LLMs.</Description>
-    <FileVersion>1.0.0</FileVersion>
+    <FileVersion>1.0.3</FileVersion>
     <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <OptionInfer>Off</OptionInfer>
@@ -33,7 +33,7 @@
     <PackageReadmeFile>README.nuget.md</PackageReadmeFile>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageId>Ollamantis</PackageId>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 

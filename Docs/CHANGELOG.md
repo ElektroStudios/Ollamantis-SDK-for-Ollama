@@ -1,6 +1,10 @@
 ﻿# Ollamantis Change Log 📋
 
-## v1.0.2 *(current)* 🆕
+## v1.0.3 *(current)* 🆕
+ - Restored AnyCPU compatibility in the .NET 10 NuGet package.
+ - Added regression tests for chat retries after a stream error or a callback exception.
+
+## v1.0.2
  - Fixed chat session retries duplicating messages or leaving null entries in conversation history after a failed turn.
  - Fixed completion and chat requests throwing a null reference exception for a missing request.
  - Fixed streaming completion and chat requests starting an HTTP call when the callback is missing.
