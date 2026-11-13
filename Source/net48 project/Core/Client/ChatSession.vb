@@ -54,6 +54,9 @@ Namespace Core
         ''' </summary>
         Protected ReadOnly Conversations As New ConcurrentDictionary(Of Guid, List(Of ChatMessage))()
 
+        ''' <summary>Serializes turns for each conversation while allowing different conversations to run independently.</summary>
+        Private ReadOnly conversationGates As New ConcurrentDictionary(Of Guid, SemaphoreSlim)()
+
         ''' <summary>
         ''' Gets the string to display in the debugger watch window for this instance.
         ''' </summary>
@@ -585,38 +588,48 @@ Namespace Core
                 ArgumentValidator.ThrowIfNull(onChunkReceived, NameOf(onChunkReceived))
             End If
 
-            Dim messages As List(Of ChatMessage) = Nothing
+            ArgumentValidator.ThrowIfNull(request.Messages, NameOf(request.Messages))
 
-            ' Try to fetch the conversation history; if not found, create a new one.
-            If Not Me.Conversations.TryGetValue(request.ConversationId, messages) Then
-                messages = New List(Of ChatMessage)()
-                Me.Conversations(request.ConversationId) = messages
-            End If
+            Dim conversationId As Guid = request.ConversationId
+            Dim gate As SemaphoreSlim = Me.conversationGates.GetOrAdd(conversationId,
+                Function(id As Guid) New SemaphoreSlim(1, 1))
 
-            ' Append incoming user messages to the conversation history.
-            messages.AddRange(request.Messages)
+            Await gate.WaitAsync(cancellationToken).ConfigureAwait(False)
+            Try
+                Dim history As List(Of ChatMessage) = Me.Conversations.GetOrAdd(conversationId,
+                    Function(id As Guid) New List(Of ChatMessage)())
+                Dim newMessages As New List(Of ChatMessage)(request.Messages)
+                Dim messages As New List(Of ChatMessage)(history)
+                messages.AddRange(newMessages)
 
-            ' Replace the request's message list with the fully assembled conversation history.
-            request.Messages = messages
+                Dim outboundRequest As New ChatCompletionRequest(conversationId) With {
+                    .Model = request.Model,
+                    .Messages = messages,
+                    .Tools = request.Tools,
+                    .Think = request.Think,
+                    .Format = request.Format,
+                    .Options = request.Options,
+                    .KeepAlive = request.KeepAlive
+                }
 
-            Dim finalResponse As ChatCompletionResponse = Nothing
-            If Not stream Then
-                ' Disable streaming to guarantee the API returns a single JSON object instead of NDJSON.
-                request.Stream = False
-                finalResponse = Await Me.Client.Generation.GenerateChatCompletionAsync(request, cancellationToken).
-                                                           ConfigureAwait(continueOnCapturedContext:=False)
-            Else
-                ' Enable streaming to guarantee the API returns a NDJSON (Newline Delimited JSON) instead of a single JSON object.
-                request.Stream = True
-                finalResponse = Await Me.Client.Generation.StreamChatCompletionAsync(request, onChunkReceived, cancellationToken).
-                                                           ConfigureAwait(continueOnCapturedContext:=False)
-            End If
+                Dim finalResponse As ChatCompletionResponse
+                If stream Then
+                    finalResponse = Await Me.Client.Generation.StreamChatCompletionAsync(outboundRequest, onChunkReceived, cancellationToken).
+                                                               ConfigureAwait(False)
+                Else
+                    finalResponse = Await Me.Client.Generation.GenerateChatCompletionAsync(outboundRequest, cancellationToken).
+                                                               ConfigureAwait(False)
+                End If
 
-            ' Ensure the model's final response is appended to the conversation history.
-            ' Deterministic approach: If the finalResponse or its Message is Nothing, it will throw a NullReferenceException.
-            messages.Add(finalResponse.Message)
+                If finalResponse.IsSuccessful AndAlso finalResponse.Message IsNot Nothing Then
+                    history.AddRange(newMessages)
+                    history.Add(finalResponse.Message)
+                End If
 
-            Return finalResponse
+                Return finalResponse
+            Finally
+                gate.Release()
+            End Try
         End Function
 
 #End Region

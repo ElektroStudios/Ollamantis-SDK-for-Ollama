@@ -9,10 +9,9 @@ Option Infer Off
 #Region " Imports "
 
 Imports System.Globalization
-Imports System.Net
-Imports System.Net.Http
 Imports System.Threading
 
+Imports Ollamantis.Contracts
 Imports Ollamantis.Core
 Imports Ollamantis.Tests.Mocks
 
@@ -76,27 +75,18 @@ Namespace Ollamantis.Tests.Core
             Assert.Equal(originalCulture.Name, Thread.CurrentThread.CurrentCulture.Name)
         End Sub
 
+        ''' <summary>Verifies that the SDK deserializes a model size above the 32-bit integer range.</summary>
         <Fact>
-        Public Async Function OllamaClient_WhenReceivingValidJson_ShouldDeserializeCorrectly() As Task
+        Public Async Function OllamaClientDeserializesLargeModelSizes() As Task
+            Using handler As New MockHttpMessageHandler(),
+                  client As OllamaClient = handler.CreateClient()
+                handler.Enqueue("{""models"":[{""name"":""llama3"",""size"":4000000000}]}")
+                Dim response As LocalModelsResponse =
+                    Await client.Management.ListLocalModelsAsync(CancellationToken.None).ConfigureAwait(False)
 
-            ' Arrange: Simulate a raw JSON response from the Ollama API.
-            Dim fakeJsonResponse As String =
-                "{ ""name"": ""llama3"", ""modified_at"": ""2026-08-18T14:00:00Z"", ""size"": 4000000000 }"
-
-            ' Inject the mock handler so no real network request is made.
-            Dim mockHandler As New MockHttpMessageHandler(fakeJsonResponse, HttpStatusCode.OK)
-            Dim httpClient As New HttpClient(mockHandler)
-
-            ' Act: Fire the request. The mock intercepts it, so the URL doesn't even matter!.
-            Dim responseMessage As HttpResponseMessage =
-                Await httpClient.GetAsync("http://localhost:11434/api/tags").ConfigureAwait(False)
-
-            Dim resultString As String =
-                Await responseMessage.Content.ReadAsStringAsync().ConfigureAwait(False)
-
-            ' Assert: Verify the mock successfully hijacked the HTTP call.
-            Assert.True(responseMessage.IsSuccessStatusCode, "The mocked HTTP response should have a success status code.")
-            Assert.Contains("llama3", resultString, StringComparison.OrdinalIgnoreCase)
+                Assert.True(response.IsSuccessful)
+                Assert.Equal(4000000000L, Assert.Single(response.Models).FileSize)
+            End Using
         End Function
 
 #End Region

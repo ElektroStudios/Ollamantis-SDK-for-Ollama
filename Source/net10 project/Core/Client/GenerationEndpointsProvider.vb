@@ -416,6 +416,8 @@ Namespace Core
                                                       cancellationToken As CancellationToken
                                                      ) As Task(Of CompletionResponse)
 
+            ArgumentValidator.ThrowIfNull(request, NameOf(request))
+
             ' Disable streaming to guarantee the API returns a single JSON object instead of NDJSON.
             request.Stream = False
 
@@ -531,10 +533,12 @@ Namespace Core
                                                     cancellationToken As CancellationToken
                                                    ) As Task(Of CompletionResponse)
 
-            ' Enable streaming to guarantee the API returns a NDJSON (Newline Delimited JSON) instead of a single JSON object.
-            If request IsNot Nothing Then ' We later throw a 'NullReferenceException' in 'StreamingPostAsJsonAsync' if request is null.
-                request.Stream = True
-            End If
+            ArgumentValidator.ThrowIfNull(onChunkReceived, NameOf(onChunkReceived))
+
+            ArgumentValidator.ThrowIfNull(request, NameOf(request))
+
+            ' Enable streaming to receive newline-delimited JSON.
+            request.Stream = True
 
             ' We need to accumulate the text ourselves because the generic method only fires the event per chunk.
             Dim responseBuilder As New StringBuilder(capacity:=1024)
@@ -766,6 +770,8 @@ Namespace Core
                                                           cancellationToken As CancellationToken
                                                          ) As Task(Of ChatCompletionResponse)
 
+            ArgumentValidator.ThrowIfNull(request, NameOf(request))
+
             ' Disable streaming to guarantee the API returns a single JSON object instead of NDJSON.
             request.Stream = False
 
@@ -900,15 +906,19 @@ Namespace Core
                                                         cancellationToken As CancellationToken
                                                        ) As Task(Of ChatCompletionResponse)
 
-            ' Enable streaming to guarantee the API returns a NDJSON (Newline Delimited JSON) instead of a single JSON object.
-            If request IsNot Nothing Then ' We later throw a 'NullReferenceException' in 'StreamingPostAsJsonAsync' if request is null.
-                request.Stream = True
-            End If
+            ArgumentValidator.ThrowIfNull(onChunkReceived, NameOf(onChunkReceived))
+
+            ArgumentValidator.ThrowIfNull(request, NameOf(request))
+
+            ' Enable streaming to receive newline-delimited JSON.
+            request.Stream = True
 
             ' We need to accumulate the text and thinking ourselves because the generic method only fires the event per chunk.
             Dim contentBuilder As New StringBuilder(capacity:=1024)
             Dim thinkingBuilder As New StringBuilder(capacity:=1024)
             Dim imagesList As New List(Of ImageOption)()
+            Dim toolCalls As New List(Of ToolCall)()
+            Dim toolName As String = Nothing
             Dim messageRole As String = "assistant"
 
             ' Receive the final chunk directly from the streaming processor.
@@ -934,6 +944,13 @@ Namespace Core
                             ' Accumulate Images (Future-proofing for Text-to-Image models).
                             If chunk.Message.Images IsNot Nothing AndAlso chunk.Message.Images.Count > 0 Then
                                 imagesList.AddRange(chunk.Message.Images)
+                            End If
+
+                            If chunk.Message.ToolCalls IsNot Nothing Then
+                                toolCalls.AddRange(chunk.Message.ToolCalls)
+                            End If
+                            If Not String.IsNullOrEmpty(chunk.Message.ToolName) Then
+                                toolName = chunk.Message.ToolName
                             End If
 
                             ' Save Role.
@@ -964,8 +981,8 @@ Namespace Core
                 content:=contentBuilder.ToString(),
                 thinking:=thinkingBuilder.ToString(),
                 images:=If(imagesList.Count > 0, imagesList, Nothing),
-                toolCalls:=finalChunk.Message?.ToolCalls,
-                toolName:=finalChunk.Message?.ToolName
+                toolCalls:=If(toolCalls.Count > 0, toolCalls, finalChunk.Message?.ToolCalls),
+                toolName:=toolName
             )
 
             Dim chatResponse As New ChatCompletionResponse(
